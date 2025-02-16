@@ -1,4 +1,4 @@
-﻿namespace OmniVoice
+﻿namespace OmniVoice.Presentation.Views
 {
     partial class Form1
     {
