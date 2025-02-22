@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OmniVoice.Domain.Recognition
+namespace OmniVoice.Domain.SpeechRecognition
 {
-    internal interface IRecognition
+    internal interface ISpeechRecognition
     {
         public bool Accept(byte[] buffer, int length);
         public string PartialResult();
