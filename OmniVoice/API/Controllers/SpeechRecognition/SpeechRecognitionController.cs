@@ -27,20 +27,24 @@ namespace OmniVoice.API.Controllers.SpeechRecognition
 
             _microphone.DataAvailable += Microphone_DataAvailable;
         }
+
         public void SetInputDevice(int deviceId)
         {
             _microphone.SetInputDevice(deviceId);
         }
+
         public void Start()
         {
             _microphone.Start();
         }
+
         public void Stop()
         {
             _microphone.Stop();
 
             _speechRecognition.Reset();
         }
+
         private void Microphone_DataAvailable(object? sender, Domain.Microphone.EventArgs.MicrophoneEventArgs e)
         {
             if (_speechRecognition.Accept(e.Buffer, e.Length))
