@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Vosk;
 
 using OmniVoice.Domain.SpeechRecognition;
+using OmniVoice.Domain.SpeechRecognition.Enums;
 
 namespace OmniVoice.Infrastructure.SpeechRecognition
 {
@@ -17,7 +18,8 @@ namespace OmniVoice.Infrastructure.SpeechRecognition
         private int _thresholdSec;
         private int _sampleRate;
 
-        private int _dataProcessed;
+        private string _lastPartialResult = string.Empty;
+        private int _dataProcessed = 0;
 
         public SpeechRecognition(Model model, int sampleRate, int thresholdSec)
         {
@@ -28,17 +30,28 @@ namespace OmniVoice.Infrastructure.SpeechRecognition
             _thresholdSec = thresholdSec;
             _sampleRate = sampleRate;
             _recognizer = new VoskRecognizer(_model, _sampleRate);
-            _dataProcessed = 0;
         }
 
         /// <exception cref="ArgumentException"></exception>
-        public bool Accept(byte[] buffer, int length)
+        public SpeechRecognitionState Accept(byte[] buffer, int length)
         {
             if (length != buffer.Length) throw new ArgumentException("Invalid buffer length");
 
             _dataProcessed += length;
 
-            return _recognizer.AcceptWaveform(buffer, length);
+            if (_recognizer.AcceptWaveform(buffer, length))
+            {
+                return SpeechRecognitionState.Full;
+            }
+
+            string currentPartial = PartialResult();
+            if (currentPartial != _lastPartialResult)
+            {
+                _lastPartialResult = currentPartial;
+                return SpeechRecognitionState.Partial;
+            }
+
+            return SpeechRecognitionState.None;
         }
 
         public string PartialResult()

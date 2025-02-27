@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OmniVoice.API.Controllers.SpeechRecognition.EventArgs;
 using OmniVoice.Domain.Microphone;
 using OmniVoice.Domain.SpeechRecognition;
+using OmniVoice.Domain.SpeechRecognition.Enums;
+using OmniVoice.API.Controllers.SpeechRecognition.EventArgs;
 
 namespace OmniVoice.API.Controllers.SpeechRecognition
 {
@@ -15,10 +16,8 @@ namespace OmniVoice.API.Controllers.SpeechRecognition
         private ISpeechRecognition _speechRecognition;
         private IMicrophone _microphone;
 
-        private string _partialResult = string.Empty;
-
-        event EventHandler<RecognitionEventArgs>? RecognitionCompleted;
-        event EventHandler<RecognitionEventArgs>? PartialRecognitionAvaible;
+        public event EventHandler<RecognitionEventArgs>? RecognitionCompleted;
+        public event EventHandler<RecognitionEventArgs>? PartialRecognitionAvaible;
 
         public int DeviceNumber
         {
@@ -48,18 +47,25 @@ namespace OmniVoice.API.Controllers.SpeechRecognition
 
         private void Microphone_DataAvailable(object? sender, Domain.Microphone.EventArgs.MicrophoneEventArgs e)
         {
-            if (_speechRecognition.Accept(e.Buffer, e.Length))
-            {
-                RecognitionCompleted?.Invoke(null, new RecognitionEventArgs(
-                    _speechRecognition.Result()
-                ));
-                _speechRecognition.Reset();
-            }
-            else if (_speechRecognition.PartialResult() != _partialResult)
-            {
-                _partialResult = _speechRecognition.PartialResult();
+            SpeechRecognitionState state = _speechRecognition.Accept(e.Buffer, e.Length);
 
-                PartialRecognitionAvaible?.Invoke(null, new RecognitionEventArgs(_partialResult));
+            switch (state)
+            {
+                case SpeechRecognitionState.Partial:
+                    PartialRecognitionAvaible?.Invoke(null, new RecognitionEventArgs(
+                        _speechRecognition.PartialResult()
+                    ));
+                    break;
+
+                case SpeechRecognitionState.Full:
+                    RecognitionCompleted?.Invoke(null, new RecognitionEventArgs(
+                        _speechRecognition.Result()
+                    ));
+                    _speechRecognition.Reset();
+                    break;
+
+                case SpeechRecognitionState.None:
+                    break;
             }
         }
     }
