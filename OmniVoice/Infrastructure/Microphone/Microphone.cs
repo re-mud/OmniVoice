@@ -17,15 +17,16 @@ namespace OmniVoice.Infrastructure.Microphone
 
         private WaveInEvent _waveInEvent;
 
+        public int DeviceNumber
+        {
+            get => _waveInEvent.DeviceNumber;
+            set => _waveInEvent.DeviceNumber = value;
+        }
+
         public Microphone(WaveInEvent waveInEvent)
         {
             _waveInEvent = waveInEvent;
             _waveInEvent.DataAvailable += WaveInEvent_DataAvailable;
-        }
-
-        public void SetInputDevice(int deviceId)
-        {
-            _waveInEvent.DeviceNumber = deviceId;
         }
 
         public void Start()

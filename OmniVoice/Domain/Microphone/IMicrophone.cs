@@ -11,7 +11,7 @@ namespace OmniVoice.Domain.Microphone
     internal interface IMicrophone
     {
         public event EventHandler<MicrophoneEventArgs> DataAvailable;
-        public void SetInputDevice(int deviceId);
+        public int DeviceNumber { get; set; }
         public void Start();
         public void Stop();
     }

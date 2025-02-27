@@ -20,17 +20,18 @@ namespace OmniVoice.API.Controllers.SpeechRecognition
         event EventHandler<RecognitionEventArgs>? RecognitionCompleted;
         event EventHandler<RecognitionEventArgs>? PartialRecognitionAvaible;
 
+        public int DeviceNumber
+        {
+            get => _microphone.DeviceNumber;
+            set => _microphone.DeviceNumber = value;
+        }
+
         public SpeechRecognitionController(ISpeechRecognition speechRecognition, IMicrophone microphone)
         {
             _speechRecognition = speechRecognition;
             _microphone = microphone;
 
             _microphone.DataAvailable += Microphone_DataAvailable;
-        }
-
-        public void SetInputDevice(int deviceId)
-        {
-            _microphone.SetInputDevice(deviceId);
         }
 
         public void Start()
