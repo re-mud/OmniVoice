@@ -27,8 +27,8 @@ namespace OmniVoice.Infrastructure.SpeechRecognition
             _model = model;
             _thresholdSec = thresholdSec;
             _sampleRate = sampleRate;
-
-            Init();
+            _recognizer = new VoskRecognizer(_model, _sampleRate);
+            _dataProcessed = 0;
         }
 
         /// <exception cref="ArgumentException"></exception>
@@ -51,7 +51,8 @@ namespace OmniVoice.Infrastructure.SpeechRecognition
             if (_dataProcessed >= _thresholdSec * _sampleRate)
             {
                 _recognizer.Dispose();
-                Init();
+                _recognizer = new VoskRecognizer(_model, _sampleRate);
+                _dataProcessed = 0;
             }
 
             _recognizer.Reset();
@@ -60,12 +61,6 @@ namespace OmniVoice.Infrastructure.SpeechRecognition
         public string Result()
         {
             return _recognizer.Result();
-        }
-
-        private void Init()
-        {
-            _recognizer = new VoskRecognizer(_model, _sampleRate);
-            _dataProcessed = 0;
         }
     }
 }
