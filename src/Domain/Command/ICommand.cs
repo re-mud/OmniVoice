@@ -1,4 +1,6 @@
-﻿namespace OmniVoice.Domain.Command;
+﻿using OmniVoice.Domain.Command.Models;
+
+namespace OmniVoice.Domain.Command;
 
 public interface ICommand
 {
@@ -6,11 +8,7 @@ public interface ICommand
     /// list of required parsers
     /// </summary>
     string[] RequiredParams { get; }
-    /// <summary>
-    /// probability calculation
-    /// </summary>
-    /// <returns>[0.0f, 1.0f]</returns>
-    float Probability(string text);
+    CommandParseResult Parse(string text);
     /// <summary>
     /// execute command
     /// </summary>
