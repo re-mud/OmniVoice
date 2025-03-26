@@ -1,6 +1,6 @@
 ﻿using OmniVoice.Domain.Command.Models;
 
-namespace OmniVoice.Domain.Command;
+namespace OmniVoice.Domain.Command.Interfaces;
 
 public interface ICommand
 {

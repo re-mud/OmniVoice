@@ -1,4 +1,5 @@
-﻿using OmniVoice.Domain.Command.Models;
+﻿using OmniVoice.Domain.Command.Interfaces;
+using OmniVoice.Domain.Command.Models;
 using System.Text;
 
 namespace OmniVoice.Domain.Command;
