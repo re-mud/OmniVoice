@@ -1,6 +1,6 @@
 ﻿using OmniVoice.Domain.Command;
 
-namespace Domain.UnitTest.Command;
+namespace OmniVoice.Domain.UnitTest.Command;
 
 [TestClass]
 public class TokenCommandTests
