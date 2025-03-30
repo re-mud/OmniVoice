@@ -1,4 +1,5 @@
 ﻿using OmniVoice.Domain.Services;
+using System.Collections.Generic;
 
 namespace OmniVoice.Infrastructure.Services;
 
@@ -55,5 +56,14 @@ public class ClassRegistry : IClassRegistry
         if (!_storage.ContainsKey(type)) return Array.Empty<string>();
 
         return _storage[type].Keys.ToArray();
+    }
+
+    public Dictionary<string, T> GetKeysWithElements<T>() where T : class
+    {
+        var type = typeof(T);
+        if (!_storage.ContainsKey(type)) return new Dictionary<string, T>();
+
+        Dictionary<string, object> dict = _storage[type];
+        return dict.ToDictionary(kvp => kvp.Key, kvp => kvp.Value as T);
     }
 }

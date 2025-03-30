@@ -7,4 +7,5 @@ public interface IClassRegistry
     void RemoveElement(string key);
     T[] GetElements<T>() where T : class;
     string[] GetKeys<T>() where T : class;
+    Dictionary<string, T> GetKeysWithElements<T>() where T : class;
 }
