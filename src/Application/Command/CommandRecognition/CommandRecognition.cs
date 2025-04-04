@@ -1,9 +1,8 @@
-﻿using OmniVoice.Application.Services.CommandRecognition;
-using OmniVoice.Domain.Analyzers;
+﻿using OmniVoice.Domain.Analyzers;
 using OmniVoice.Domain.Command.Interfaces;
 using OmniVoice.Domain.Command.Models;
 
-namespace OnniVoice.Application.Services.CommandRecognition;
+namespace OmniVoice.Application.Command.CommandRecognition;
 
 public class CommandRecognition
 {
