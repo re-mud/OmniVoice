@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <RootNamespace>OmniVoice.Presentation</RootNamespace>
-    <AssemblyName>OmniVoice.Presentation</AssemblyName>
+    <AssemblyName>OmniVoice</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
