@@ -4,8 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using OmniVoice.Application.Configuration;
 using OmniVoice.Infrastructure.Configuration;
 using OmniVoice.Presentation.Configuration;
-
 using OmniVoice.Presentation.Views;
+
 using System.IO;
 
 namespace OmniVoice.Presentation;

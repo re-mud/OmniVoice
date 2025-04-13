@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using OmniVoice.Application.Command.CommandRecognition;
 using OmniVoice.Application.Services.CommandService;
 using OmniVoice.Application.Services.SpeechRecognition;

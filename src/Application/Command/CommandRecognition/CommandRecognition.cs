@@ -45,7 +45,7 @@ public class CommandRecognition
 
             foreach (var param in command.RequiredParams)
             {
-                if (!_parsers.TryGetValue(param, out IParser parser)) break;
+                if (!_parsers.TryGetValue(param, out IParser? parser)) break;
 
                 object extractData = parser.ExtractData(result.RemainingText);
 
