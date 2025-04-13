@@ -1,6 +1,6 @@
 ﻿using OmniVoice.Domain.Services;
 
-namespace OmniVoice.Infrastructure.Services;
+namespace OmniVoice.Infrastructure.Services.Logging;
 
 public class Logger : ILogger
 {
