@@ -1,24 +1,31 @@
-﻿using OmniVoice.Domain.Services;
+﻿using Microsoft.Extensions.Options;
+
+using OmniVoice.Domain.Services;
+using OmniVoice.Infrastructure.Services.Logging.Options;
 
 namespace OmniVoice.Infrastructure.Services.Logging;
 
 public class Logger : ILogger
 {
     private readonly object _lockFile = new();
-    private readonly string _filePath;
+    private readonly LoggerOptions _options;
 
-    public Logger(string filePath)
+    public Logger(IOptions<LoggerOptions> options)
     {
-        _filePath = filePath;
+        _options = options.Value;
 
-        File.WriteAllText(filePath, string.Empty);
+        File.WriteAllText(_options.LogPath, string.Empty);
     }
 
     private void Log(string type, string message)
     {
         lock (_lockFile)
         {
-            File.AppendAllText(_filePath, $"[{type}] [{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {message}\n");
+            File.AppendAllText(_options.LogPath, string.Format(_options.LogFormat,
+                DateTime.Now.ToString(_options.DateFormat),
+                type,
+                message
+            ));
         }
     }
 
