@@ -2,6 +2,7 @@
 
 using OmniVoice.Domain.SpeechRecognition.Interfaces;
 using OmniVoice.Domain.SpeechRecognition.Enums;
+using OmniVoice.Infrastructure.Services.Options;
 
 namespace OmniVoice.Infrastructure.Services;
 
@@ -9,21 +10,19 @@ public class VoskSpeechRecognition : ISpeechRecognition
 {
     private VoskRecognizer _recognizer;
     private Model _model;
-    private int _thresholdSec;
-    private int _sampleRate;
+    private VoskSpeechRecognitionOptions _options;
 
     private string _lastPartialResult = string.Empty;
     private int _dataProcessed = 0;
 
-    public VoskSpeechRecognition(Model model, int sampleRate, int thresholdSec)
+    public VoskSpeechRecognition(VoskSpeechRecognitionOptions options, Model model)
     {
         ArgumentNullException.ThrowIfNull(model);
-        if (sampleRate < 8000) throw new ArgumentException("Invalid sampleRate");
+        if (options.SampleRate < 8000) throw new ArgumentException("Invalid sampleRate");
 
+        _options = options;
         _model = model;
-        _thresholdSec = thresholdSec;
-        _sampleRate = sampleRate;
-        _recognizer = new VoskRecognizer(_model, _sampleRate);
+        _recognizer = new VoskRecognizer(_model, _options.SampleRate);
     }
 
     /// <exception cref="ArgumentException"></exception>
@@ -55,10 +54,10 @@ public class VoskSpeechRecognition : ISpeechRecognition
 
     public void Reset()
     {
-        if (_dataProcessed >= _thresholdSec * _sampleRate)
+        if (_dataProcessed >= _options.ThresholdSec * _options.SampleRate)
         {
             _recognizer.Dispose();
-            _recognizer = new VoskRecognizer(_model, _sampleRate);
+            _recognizer = new VoskRecognizer(_model, _options.SampleRate);
             _dataProcessed = 0;
         }
 
