@@ -2,5 +2,5 @@
 
 public class VoskModelOptions
 {
-    public string ModelPath { get; } = string.Empty;
+    public string ModelPath { set; get; } = string.Empty;
 }

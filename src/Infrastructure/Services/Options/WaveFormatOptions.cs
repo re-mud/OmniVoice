@@ -2,7 +2,7 @@
 
 public class WaveFormatOptions
 {
-    public int Bits { get; } = 16;
-    public int Channels { get; } = 1;
-    public int SampleRate { get; } = 16000;
+    public int Bits { set; get; } = 16;
+    public int Channels { set; get; } = 1;
+    public int SampleRate { set; get; } = 16000;
 }
