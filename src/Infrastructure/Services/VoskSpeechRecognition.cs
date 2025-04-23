@@ -3,6 +3,7 @@
 using OmniVoice.Domain.SpeechRecognition.Interfaces;
 using OmniVoice.Domain.SpeechRecognition.Enums;
 using OmniVoice.Infrastructure.Services.Options;
+using Microsoft.Extensions.Options;
 
 namespace OmniVoice.Infrastructure.Services;
 
@@ -15,12 +16,12 @@ public class VoskSpeechRecognition : ISpeechRecognition
     private string _lastPartialResult = string.Empty;
     private int _dataProcessed = 0;
 
-    public VoskSpeechRecognition(VoskSpeechRecognitionOptions options, Model model)
+    public VoskSpeechRecognition(IOptions<VoskSpeechRecognitionOptions> options, Model model)
     {
         ArgumentNullException.ThrowIfNull(model);
-        if (options.SampleRate < 8000) throw new ArgumentException("Invalid sampleRate");
+        if (options.Value.SampleRate < 8000) throw new ArgumentException("Invalid sampleRate");
 
-        _options = options;
+        _options = options.Value;
         _model = model;
         _recognizer = new VoskRecognizer(_model, _options.SampleRate);
     }
