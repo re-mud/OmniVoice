@@ -9,27 +9,24 @@ public class CommandRecognition
     private Dictionary<string, ICommand>? _commands;
     private Dictionary<string, IParser>? _parsers;
 
-    /// <exception cref="ArgumentNullException"></exception>
     public void SetCommands(Dictionary<string, ICommand> commands)
     {
-        ArgumentNullException.ThrowIfNull(commands);
-
         _commands = commands;
     }
 
-    /// <exception cref="ArgumentNullException"></exception>
     public void SetParsers(Dictionary<string, IParser> parsers)
     {
-        ArgumentNullException.ThrowIfNull(parsers);
-
         _parsers = parsers;
     }
 
+    /// <summary>
+    /// commands and parsers are required before execution
+    /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
     public CommandRecognitionResult[] Recognize(string text)
     {
-        if (_commands == null) throw new ArgumentNullException("Commands is not set");
-        if (_parsers == null) throw new ArgumentNullException("Parcers is not set");
+        ArgumentNullException.ThrowIfNull(_parsers);
+        ArgumentNullException.ThrowIfNull(_commands);
 
         List<CommandRecognitionResult> results = new List<CommandRecognitionResult>();
 
