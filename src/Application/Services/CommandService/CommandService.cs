@@ -1,26 +1,37 @@
-﻿using OmniVoice.Application.Command.CommandRecognition;
+﻿using OmniVoice.Domain.Services;
+using OmniVoice.Application.Command.CommandRecognition;
 using OmniVoice.Application.Services.SpeechRecognition;
 
 namespace OmniVoice.Application.Services.CommandService;
 
 public class CommandService
 {
-    private CommandRecognition _commandRecognition;
-    private SpeechRecognitionService _speechRecognitionService;
+    private CommandRecognition CommandRecognition { get; }
+    private SpeechRecognitionService SpeechRecognitionService { get; }
+    private ILogger _logger;
 
     public CommandService(
         CommandRecognition commandRecognition,
-        SpeechRecognitionService speechRecognitionService)
+        SpeechRecognitionService speechRecognitionService,
+        ILogger logger)
     {
-        _commandRecognition = commandRecognition;
-        _speechRecognitionService = speechRecognitionService;
+        ArgumentNullException.ThrowIfNull(commandRecognition, nameof(commandRecognition));
+        ArgumentNullException.ThrowIfNull(speechRecognitionService, nameof(speechRecognitionService));
+        ArgumentNullException.ThrowIfNull(logger, nameof(logger));
 
-        _speechRecognitionService.RecognitionCompleted += SpeechRecognitionService_RecognitionCompleted;
+        CommandRecognition = commandRecognition;
+        SpeechRecognitionService = speechRecognitionService;
+        _logger = logger;
+
+        SpeechRecognitionService.RecognitionCompleted += SpeechRecognitionService_RecognitionCompleted;
     }
 
     private void SpeechRecognitionService_RecognitionCompleted(object? sender, SpeechRecognition.Events.RecognitionEventArgs e)
     {
-        CommandRecognitionResult[] results = _commandRecognition.Recognize(e.Text);
+#if DEBUG
+        _logger.Debug($"hears: \"{e.Text}\"");
+#endif
+        CommandRecognitionResult[] results = CommandRecognition.Recognize(e.Text);
 
         if (results.Length == 0) return;
 
@@ -33,11 +44,19 @@ public class CommandService
             }
         }
 
+#if DEBUG
+        _logger.Debug($"recognized Key:\"{best.Key}\" Command:\"{best.Command.GetCommand()}\"");
+#endif
+
         best.Execute();
     }
 
-    public void Start()
-    {
-        _speechRecognitionService.Start();
-    }
+    /// <summary>
+    /// Start recognizing commands and executing them
+    /// </summary>
+    public void Start() => SpeechRecognitionService.Start();
+    /// <summary>
+    /// Stop recognizing
+    /// </summary>
+    public void Stop() => SpeechRecognitionService.Stop();
 }
