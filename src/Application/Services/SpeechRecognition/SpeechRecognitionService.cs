@@ -22,10 +22,35 @@ public class SpeechRecognitionService
 
     public SpeechRecognitionService(ISpeechRecognition speechRecognition, IMicrophone microphone)
     {
+        ArgumentNullException.ThrowIfNull(speechRecognition, nameof(speechRecognition));
+        ArgumentNullException.ThrowIfNull(microphone, nameof(microphone));
+
         _speechRecognition = speechRecognition;
         _microphone = microphone;
 
         _microphone.DataAvailable += Microphone_DataAvailable;
+    }
+
+    public void SetSpeechRecognition(ISpeechRecognition speechRecognition)
+    {
+        ArgumentNullException.ThrowIfNull(speechRecognition, nameof(speechRecognition));
+
+        Stop();
+
+        _speechRecognition = speechRecognition;
+    }
+
+    public void SetMicrophone(IMicrophone microphone)
+    {
+        ArgumentNullException.ThrowIfNull(microphone, nameof(microphone));
+
+        Stop();
+
+        _microphone.DataAvailable -= Microphone_DataAvailable;
+
+        microphone.DataAvailable += Microphone_DataAvailable;
+
+        _microphone = microphone;
     }
 
     public void Start()
