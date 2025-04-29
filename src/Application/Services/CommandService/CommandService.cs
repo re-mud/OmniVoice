@@ -6,8 +6,8 @@ namespace OmniVoice.Application.Services.CommandService;
 
 public class CommandService
 {
-    private CommandRecognition CommandRecognition { get; }
-    private SpeechRecognitionService SpeechRecognitionService { get; }
+    public CommandRecognition CommandRecognition { get; }
+    public SpeechRecognitionService SpeechRecognitionService { get; }
     private ILogger _logger;
 
     public CommandService(
