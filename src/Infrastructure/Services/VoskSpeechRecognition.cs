@@ -3,6 +3,7 @@
 using OmniVoice.Domain.SpeechRecognition.Interfaces;
 using OmniVoice.Domain.SpeechRecognition.Enums;
 using OmniVoice.Infrastructure.Services.Options;
+
 using Microsoft.Extensions.Options;
 
 namespace OmniVoice.Infrastructure.Services;
@@ -50,7 +51,9 @@ public class VoskSpeechRecognition : ISpeechRecognition
 
     public string PartialResult()
     {
-        return _recognizer.PartialResult();
+        string result = _recognizer.PartialResult();
+
+        return result.Substring(14, result.Length - 17);
     }
 
     public void Reset()
@@ -67,6 +70,8 @@ public class VoskSpeechRecognition : ISpeechRecognition
 
     public string Result()
     {
-        return _recognizer.Result();
+        string result = _recognizer.Result();
+
+        return result.Substring(14, result.Length - 17);
     }
 }
