@@ -1,20 +1,21 @@
 ﻿using OmniVoice.Domain.Analyzers;
 using OmniVoice.Domain.Command.Interfaces;
 using OmniVoice.Domain.Command.Models;
+using OmniVoice.Domain.Models;
 
 namespace OmniVoice.Application.Command.CommandRecognition;
 
 public class CommandRecognition
 {
-    private Dictionary<string, ICommand>? _commands;
-    private Dictionary<string, IParser>? _parsers;
+    private IIdentifiedEntity<ICommand>[]? _commands;
+    private IIdentifiedEntity<IParser>[]? _parsers;
 
-    public void SetCommands(Dictionary<string, ICommand> commands)
+    public void SetCommands(IIdentifiedEntity<ICommand>[] commands)
     {
         _commands = commands;
     }
 
-    public void SetParsers(Dictionary<string, IParser> parsers)
+    public void SetParsers(IIdentifiedEntity<IParser>[] parsers)
     {
         _parsers = parsers;
     }
@@ -30,9 +31,9 @@ public class CommandRecognition
 
         List<CommandRecognitionResult> results = new List<CommandRecognitionResult>();
 
-        foreach (var kvp in _commands)
+        foreach (var identifiedCommand in _commands)
         {
-            ICommand command = kvp.Value;
+            ICommand command = identifiedCommand.Value;
             CommandParseResult result = command.Parse(text);
 
             if (result.Probability < 0.8) continue;
@@ -42,7 +43,9 @@ public class CommandRecognition
 
             foreach (var param in command.RequiredParams)
             {
-                if (!_parsers.TryGetValue(param, out IParser? parser)) break;
+                IParser? parser = _parsers.FirstOrDefault(identifiedParser => identifiedParser.Id == param)?.Value;
+
+                if (parser == null) continue;
 
                 object extractData = parser.ExtractData(result.RemainingText);
 
@@ -54,7 +57,7 @@ public class CommandRecognition
             if (extractedParams.Count != command.RequiredParams.Length) continue;
 
             results.Add(new CommandRecognitionResult(
-                kvp.Key, command, result.Probability, extractedParams.ToArray()));
+                identifiedCommand.Id, command, result.Probability, extractedParams.ToArray()));
         }
 
         return results.ToArray();
