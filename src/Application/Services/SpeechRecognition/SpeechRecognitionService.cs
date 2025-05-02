@@ -13,6 +13,7 @@ public class SpeechRecognitionService
 
     public event EventHandler<RecognitionEventArgs>? RecognitionCompleted;
     public event EventHandler<RecognitionEventArgs>? PartialRecognitionAvaible;
+    public bool IsRunning { get; private set; } = false;
 
     public int DeviceNumber
     {
@@ -55,11 +56,15 @@ public class SpeechRecognitionService
 
     public void Start()
     {
+        IsRunning = true;
+
         _microphone.Start();
     }
 
     public void Stop()
     {
+        IsRunning = false;
+
         _microphone.Stop();
 
         _speechRecognition.Reset();

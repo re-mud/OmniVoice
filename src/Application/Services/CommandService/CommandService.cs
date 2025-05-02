@@ -8,6 +8,8 @@ public class CommandService
 {
     public CommandRecognition CommandRecognition { get; }
     public SpeechRecognitionService SpeechRecognitionService { get; }
+    public bool IsRunning { get => SpeechRecognitionService.IsRunning; }
+
     private ILogger _logger;
 
     public CommandService(
