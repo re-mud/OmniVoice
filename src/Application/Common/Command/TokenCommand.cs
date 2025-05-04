@@ -1,8 +1,9 @@
-﻿using OmniVoice.Domain.Command.Interfaces;
+﻿using OmniVoice.Domain.Command;
 using OmniVoice.Domain.Command.Models;
+
 using System.Text;
 
-namespace OmniVoice.Domain.Command;
+namespace OmniVoice.Application.Common.Command;
 
 public class TokenCommand : ICommand
 {
