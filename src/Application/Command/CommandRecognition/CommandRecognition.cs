@@ -1,5 +1,5 @@
 ﻿using OmniVoice.Domain.Analyzers;
-using OmniVoice.Domain.Command.Interfaces;
+using OmniVoice.Domain.Command;
 using OmniVoice.Domain.Command.Models;
 using OmniVoice.Domain.Models;
 
