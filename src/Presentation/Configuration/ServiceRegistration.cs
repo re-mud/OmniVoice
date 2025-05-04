@@ -11,7 +11,7 @@ public static class ServiceRegistration
     public static IServiceCollection AddPresentationServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient<MainWindow>();
-        services.AddTransient<IMainWindowModel, MainWindowModel>();
+        services.AddTransient<IMainWindowModel, MainWindowModel>(sp => new MainWindowModel(sp));
 
         return services;
     }
