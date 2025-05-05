@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-using OmniVoice.Domain.Microphone.Interfaces;
 using OmniVoice.Domain.Services;
-using OmniVoice.Domain.SpeechRecognition.Interfaces;
 using OmniVoice.Infrastructure.Services;
 using OmniVoice.Infrastructure.Services.Logging;
 using OmniVoice.Infrastructure.Services.Logging.Options;
@@ -11,6 +8,8 @@ using NAudio.Wave;
 
 using OmniVoice.Infrastructure.Services.Options;
 using Microsoft.Extensions.Options;
+using OmniVoice.Domain.SpeechRecognition;
+using OmniVoice.Domain.Microphone;
 
 namespace OmniVoice.Infrastructure.Configuration;
 

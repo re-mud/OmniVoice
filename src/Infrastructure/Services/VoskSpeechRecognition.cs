@@ -1,10 +1,9 @@
 ﻿using Vosk;
-
-using OmniVoice.Domain.SpeechRecognition.Interfaces;
 using OmniVoice.Domain.SpeechRecognition.Enums;
 using OmniVoice.Infrastructure.Services.Options;
 
 using Microsoft.Extensions.Options;
+using OmniVoice.Domain.SpeechRecognition;
 
 namespace OmniVoice.Infrastructure.Services;
 

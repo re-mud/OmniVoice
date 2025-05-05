@@ -1,6 +1,6 @@
 ﻿using NAudio.Wave;
+using OmniVoice.Domain.Microphone;
 using OmniVoice.Domain.Microphone.Events;
-using OmniVoice.Domain.Microphone.Interfaces;
 
 namespace OmniVoice.Infrastructure.Services;
 
