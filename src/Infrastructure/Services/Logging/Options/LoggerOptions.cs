@@ -2,7 +2,7 @@
 
 public class LoggerOptions
 {
-    public string LogPath { set; get; } = "logs.txt";
+    public string LogPath { set; get; } = "Logs\\app.log";
     /// <summary>
     /// {0} - date
     /// {1} - log level
