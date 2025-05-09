@@ -1,0 +1,24 @@
+﻿<Page x:Class="OmniVoice.Presentation.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OmniVoice.Presentation.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="600"
+      Title="MainPage">
+
+    <Grid>
+        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="200" Background="#A4B5BE" Command="{Binding ToggleMicrophoneCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" CornerRadius="100">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Label x:Name="VersionLabel" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="{Binding Version}"></Label>
+    </Grid>
+</Page>

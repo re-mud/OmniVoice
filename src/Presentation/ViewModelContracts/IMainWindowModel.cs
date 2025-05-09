@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
-using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace OmniVoice.Presentation.ViewModelContracts;
 
 public interface IMainWindowModel : INotifyPropertyChanged
 {
-    ICommand ToggleMicrophoneCommand { get; }
+    Page CurrentPage { get; set; }
 }

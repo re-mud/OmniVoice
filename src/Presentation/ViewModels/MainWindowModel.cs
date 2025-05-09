@@ -1,37 +1,36 @@
 ﻿using OmniVoice.Application.Services.CommandService;
-using OmniVoice.Presentation.Common.Command;
 using OmniVoice.Presentation.ViewModelContracts;
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace OmniVoice.Presentation.ViewModels;
 
 public class MainWindowModel : IMainWindowModel
 {
     public event PropertyChangedEventHandler? PropertyChanged;
-    public ICommand ToggleMicrophoneCommand => new RelayCommand(ToggleMicrophone);
 
-    private CommandService _commandService;
-
-    public MainWindowModel(CommandService commandService)
+    public Page[] Pages;
+    public Page CurrentPage
     {
-        _commandService = commandService;
-
-        _commandService.Start();
+        get => _currentPage;
+        set
+        {
+            _currentPage = value;
+            OnPropertyChanged(nameof(CurrentPage));
+        }
     }
 
-    private void ToggleMicrophone()
+    private Page _currentPage;
+
+    public MainWindowModel(Page[] pages)
     {
-        if (_commandService.IsRunning)
-        {
-            _commandService.Stop();
-        }
-        else
-        {
-            _commandService.Start();
-        }
+        if (pages == null || pages.Length == 0 || pages[0] == null) throw new ArgumentNullException(nameof(pages));
+
+        Pages = pages;
+
+        CurrentPage = Pages[0];
     }
 
     public void OnPropertyChanged([CallerMemberName] string prop = "")
