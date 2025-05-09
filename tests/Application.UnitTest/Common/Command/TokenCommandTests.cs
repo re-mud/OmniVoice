@@ -1,6 +1,6 @@
-﻿using OmniVoice.Domain.Command;
+﻿using OmniVoice.Application.Common.Command;
 
-namespace OmniVoice.Domain.UnitTest.Command;
+namespace Application.Domain.UnitTest.Common.Command;
 
 [TestClass]
 public class TokenCommandTests
