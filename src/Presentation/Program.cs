@@ -28,6 +28,6 @@ public class Program
         IServiceProvider serviceProvider = services.BuildServiceProvider();
 
         System.Windows.Application app = new System.Windows.Application();
-        app.Run(serviceProvider.GetService<MainWindow>());
+        app.Run(serviceProvider.GetRequiredService<MainWindow>());
     }
 }

@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using OmniVoice.Application.Models;
-using OmniVoice.Application.Services.CommandService;
-using OmniVoice.Domain.Analyzers;
-using OmniVoice.Domain.Models;
+﻿using OmniVoice.Application.Services.CommandService;
 using OmniVoice.Presentation.Common.Command;
 using OmniVoice.Presentation.ViewModelContracts;
 
@@ -18,17 +14,10 @@ public class MainWindowModel : IMainWindowModel
     public ICommand ToggleMicrophoneCommand => new RelayCommand(ToggleMicrophone);
 
     private CommandService _commandService;
-    private IServiceProvider _serviceProvider;
 
-    public MainWindowModel(IServiceProvider serviceProvider)
+    public MainWindowModel(CommandService commandService)
     {
-        _serviceProvider = serviceProvider;
-        _commandService = _serviceProvider.GetRequiredService<CommandService>();
-
-        _commandService.CommandRecognition.SetParsers(
-            (IIdentifiedEntity<IParser>[])_serviceProvider.GetServices<IdentifiedParser>());
-        _commandService.CommandRecognition.SetCommands(
-            (IIdentifiedEntity<OmniVoice.Domain.Command.ICommand>[])_serviceProvider.GetServices<IdentifiedCommand>());
+        _commandService = commandService;
 
         _commandService.Start();
     }

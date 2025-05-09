@@ -2,8 +2,12 @@
 using Microsoft.Extensions.DependencyInjection;
 
 using OmniVoice.Application.Command.CommandRecognition;
+using OmniVoice.Application.Models;
 using OmniVoice.Application.Services.CommandService;
 using OmniVoice.Application.Services.SpeechRecognition;
+using OmniVoice.Domain.Analyzers;
+using OmniVoice.Domain.Command;
+using OmniVoice.Domain.Models;
 
 namespace OmniVoice.Application.Configuration;
 
