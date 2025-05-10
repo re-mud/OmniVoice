@@ -6,6 +6,10 @@ namespace OmniVoice.Infrastructure.Services;
 
 public class NAudioMicrophone : IMicrophone
 {
+    public int SampleRate { get => _waveInEvent.WaveFormat.SampleRate; }
+    public int Channels { get => _waveInEvent.WaveFormat.Channels; }
+    public int Bits { get => _waveInEvent.WaveFormat.BitsPerSample; }
+
     public event EventHandler<MicrophoneEventArgs>? DataAvailable;
 
     private bool IsRecording = false;
@@ -19,6 +23,8 @@ public class NAudioMicrophone : IMicrophone
 
     public NAudioMicrophone(WaveInEvent waveInEvent)
     {
+        ArgumentNullException.ThrowIfNull(waveInEvent);
+
         _waveInEvent = waveInEvent;
         _waveInEvent.DataAvailable += WaveInEvent_DataAvailable;
     }
