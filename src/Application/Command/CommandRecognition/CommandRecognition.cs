@@ -10,6 +10,14 @@ public class CommandRecognition
     private IIdentifiedEntity<ICommand>[]? _commands;
     private IIdentifiedEntity<IParser>[]? _parsers;
 
+    public CommandRecognition() { }
+
+    public CommandRecognition(IIdentifiedEntity<ICommand>[] commands, IIdentifiedEntity<IParser>[] parsers)
+    {
+        SetCommands(commands);
+        SetParsers(parsers);
+    }
+
     public void SetCommands(IIdentifiedEntity<ICommand>[] commands)
     {
         _commands = commands;
