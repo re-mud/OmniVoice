@@ -16,10 +16,18 @@ public static class ServiceRegistration
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient<SpeechRecognitionService>();
-        services.AddTransient<CommandRecognition>();
+        services.AddTransient<CommandRecognition>(sp => CreateCommandRecognition(sp, configuration));
 
         services.AddSingleton<CommandService>();
 
         return services;
+    }
+
+    private static CommandRecognition CreateCommandRecognition(IServiceProvider serviceProvider, IConfiguration configuration)
+    {
+        return new(
+            (IIdentifiedEntity<ICommand>[])serviceProvider.GetServices<IdentifiedCommand>(),
+            (IIdentifiedEntity<IParser>[])serviceProvider.GetServices<IdentifiedParser>()
+        );
     }
 }

@@ -20,21 +20,10 @@ public static class ServiceRegistration
         services.AddTransient<MainPage>();
         services.AddTransient<MainWindow>();
         services.AddTransient<IMainWindowModel>(sp => CreateMainWindowModel(sp, configuration));
-        services.AddTransient<IMainPageModel>(sp => CreateMainPage(sp, configuration));
+        services.AddTransient<IMainPageModel, MainPageModel>();
+
 
         return services;
-    }
-
-    private static MainPageModel CreateMainPage(IServiceProvider serviceProvider, IConfiguration configuration)
-    {
-        CommandService commandService = serviceProvider.GetRequiredService<CommandService>();
-
-        commandService.CommandRecognition.SetParsers(
-            (IIdentifiedEntity<IParser>[])serviceProvider.GetServices<IdentifiedParser>());
-        commandService.CommandRecognition.SetCommands(
-            (IIdentifiedEntity<ICommand>[])serviceProvider.GetServices<IdentifiedCommand>());
-
-        return new MainPageModel(commandService);
     }
 
     private static MainWindowModel CreateMainWindowModel(IServiceProvider serviceProvider, IConfiguration configuration)
