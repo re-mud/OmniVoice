@@ -1,4 +1,5 @@
 ﻿using OmniVoice.Presentation.ViewModelContracts;
+
 using System.Windows.Controls;
 
 namespace OmniVoice.Presentation.Views;

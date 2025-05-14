@@ -1,16 +1,13 @@
-﻿using OmniVoice.Application.Services.CommandService;
+﻿using OmniVoice.Domain.Services;
+using OmniVoice.Presentation.Common;
 using OmniVoice.Presentation.ViewModelContracts;
 
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 
 namespace OmniVoice.Presentation.ViewModels;
 
-public class MainWindowModel : IMainWindowModel
+public class MainWindowModel : ViewModelBase, IMainWindowModel
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-
     public Page[] Pages;
     public Page CurrentPage
     {
@@ -31,11 +28,5 @@ public class MainWindowModel : IMainWindowModel
         Pages = pages;
 
         CurrentPage = Pages[0];
-    }
-
-    public void OnPropertyChanged([CallerMemberName] string prop = "")
-    {
-        if (PropertyChanged != null)
-            PropertyChanged(this, new PropertyChangedEventArgs(prop));
     }
 }
