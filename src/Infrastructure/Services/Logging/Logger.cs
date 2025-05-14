@@ -29,23 +29,23 @@ public class Logger : ILogger
         }
     }
 
-    private void Log(LogLevel level, string message)
+    private void Log(LogLevel level, string text)
     {
         lock (_lockFile)
         {
             try
             {
                 DateTime dateTime = DateTime.Now;
+                string message = string.Format(_options.LogFormat,
+                    dateTime.ToString(_options.DateFormat),
+                    level.ToString(),
+                    text);
 
-                LogEvent?.Invoke(this, new LogEventArgs(message, level, dateTime));
+                LogEvent?.Invoke(this, new LogEventArgs(message, text, level, dateTime));
 
                 if (_options.LogPath != "")
                 {
-                    File.AppendAllText(_options.LogPath, string.Format(_options.LogFormat,
-                        dateTime.ToString(_options.DateFormat),
-                        level.ToString(),
-                        message
-                    ));
+                    File.AppendAllText(_options.LogPath, message);
                 }
             }
             catch (Exception ex)
@@ -55,9 +55,9 @@ public class Logger : ILogger
         }
     }
 
-    public void Info(string message) => Log(LogLevel.Info, message);
-    public void Debug(string message) => Log(LogLevel.Debug, message);
-    public void Warn(string message) => Log(LogLevel.Warn, message);
-    public void Error(string message) => Log(LogLevel.Error, message);
-    public void Fatal(string message) => Log(LogLevel.Fatal, message);
+    public void Info(string text) => Log(LogLevel.Info, text);
+    public void Debug(string text) => Log(LogLevel.Debug, text);
+    public void Warn(string text) => Log(LogLevel.Warn, text);
+    public void Error(string text) => Log(LogLevel.Error, text);
+    public void Fatal(string text) => Log(LogLevel.Fatal, text);
 }
