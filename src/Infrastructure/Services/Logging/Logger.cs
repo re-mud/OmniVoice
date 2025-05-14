@@ -18,12 +18,15 @@ public class Logger : ILogger
     {
         _options = options.Value;
 
-        string? directoryName = Path.GetDirectoryName(_options.LogPath);
-        if (directoryName != null)
+        if (_options.LogPath != "")
         {
-            Directory.CreateDirectory(directoryName);
+            string? directoryName = Path.GetDirectoryName(_options.LogPath);
+            if (directoryName != null)
+            {
+                Directory.CreateDirectory(directoryName);
+            }
+            File.WriteAllText(_options.LogPath, string.Empty);
         }
-        File.WriteAllText(_options.LogPath, string.Empty); 
     }
 
     private void Log(LogLevel level, string message)
@@ -36,11 +39,14 @@ public class Logger : ILogger
 
                 LogEvent?.Invoke(this, new LogEventArgs(message, level, dateTime));
 
-                File.AppendAllText(_options.LogPath, string.Format(_options.LogFormat,
-                    dateTime.ToString(_options.DateFormat),
-                    level.ToString(),
-                    message
-                ));
+                if (_options.LogPath != "")
+                {
+                    File.AppendAllText(_options.LogPath, string.Format(_options.LogFormat,
+                        dateTime.ToString(_options.DateFormat),
+                        level.ToString(),
+                        message
+                    ));
+                }
             }
             catch (Exception ex)
             {
