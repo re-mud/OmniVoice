@@ -11,7 +11,8 @@ public class SpeechRecognitionService
     private ISpeechRecognition _speechRecognition;
     private IMicrophone _microphone;
 
-    private byte[]? _lastBuffer;
+    private byte[]? _lastBuffer; 
+    private double? _cachedVolume;
 
     public event EventHandler<RecognitionEventArgs>? RecognitionCompleted;
     public event EventHandler<RecognitionEventArgs>? PartialRecognitionAvaible;
@@ -36,7 +37,8 @@ public class SpeechRecognitionService
 
     public double GetVolume()
     {
-        if (_lastBuffer == null || !IsRunning) return 0;
+        if (_lastBuffer == null || _lastBuffer.Length == 0 || !IsRunning) return 0;
+        if (_cachedVolume.HasValue) return _cachedVolume.Value;
 
         double sum = 0; 
 
@@ -46,7 +48,8 @@ public class SpeechRecognitionService
             sum += sample * sample;
         }
 
-        return Math.Sqrt(sum / _lastBuffer.Length * 2);
+        _cachedVolume = Math.Sqrt(sum / _lastBuffer.Length * 2);
+        return _cachedVolume.Value;
     }
 
     public void SetSpeechRecognition(ISpeechRecognition speechRecognition)
@@ -90,6 +93,7 @@ public class SpeechRecognitionService
     private void Microphone_DataAvailable(object? sender, MicrophoneEventArgs e)
     {
         _lastBuffer = e.Buffer;
+        _cachedVolume = null;
         SpeechRecognitionState state = _speechRecognition.Accept(e.Buffer, e.Length);
 
         switch (state)
