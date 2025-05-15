@@ -13,7 +13,25 @@ namespace OmniVoice.Presentation.ViewModels;
 
 public class MainPageModel : ViewModelBase, IMainPageModel
 {
-    public ICommand ToggleMicrophoneCommand => new RelayCommand(ToggleMicrophone);
+    private ICommand _toggleMicrophoneCommand;
+    public ICommand ToggleMicrophoneCommand
+    {
+        get
+        {
+            return _toggleMicrophoneCommand ??= new RelayCommand(obj =>
+            {
+                if (_commandService.IsRunning)
+                {
+                    _commandService.Stop();
+                }
+                else
+                {
+                    _commandService.Start();
+                }
+            });
+        }
+    }
+
     public string Version { get; private set; } = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0.0";
 
 
@@ -24,17 +42,5 @@ public class MainPageModel : ViewModelBase, IMainPageModel
         _commandService = commandService;
 
         _commandService.Start();
-    }
-
-    private void ToggleMicrophone()
-    {
-        if (_commandService.IsRunning)
-        {
-            _commandService.Stop();
-        }
-        else
-        {
-            _commandService.Start();
-        }
     }
 }
