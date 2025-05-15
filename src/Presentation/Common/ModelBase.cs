@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace OmniVoice.Presentation.Common;
 
-public class ModelBase
+public class ModelBase : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
