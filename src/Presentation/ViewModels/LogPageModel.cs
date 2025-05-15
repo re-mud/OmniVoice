@@ -3,15 +3,13 @@ using OmniVoice.Domain.Services.Events;
 using OmniVoice.Presentation.Common;
 using OmniVoice.Presentation.ViewModelContracts;
 
-using System.Text;
-
 namespace OmniVoice.Presentation.ViewModels;
 
 public class LogPageModel : ViewModelBase, ILogPageModel
 {
     private const int MaxLogLength = 100;
 
-    private StringBuilder _logsBuilder = new();
+    private List<string> _logsArray = new();
     private ILogger _logger;
 
     private string _logs = string.Empty;
@@ -34,13 +32,13 @@ public class LogPageModel : ViewModelBase, ILogPageModel
 
     private void Logger_LogEvent(object? sender, LogEventArgs e)
     {
-        _logsBuilder.Append(e.Message);
+        _logsArray.Add(e.Message);
 
-        if (_logsBuilder.Length > MaxLogLength)
+        if (_logsArray.Count > MaxLogLength)
         {
-            _logsBuilder.Remove(0, 1);
+            _logsArray.RemoveAt(0);
         }
 
-        Logs = _logsBuilder.ToString();
+        Logs = string.Join("", _logsArray);
     }
 }

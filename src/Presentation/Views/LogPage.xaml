@@ -13,6 +13,7 @@
                  VerticalScrollBarVisibility="Auto" 
                  TextWrapping="Wrap" 
                  Background="Transparent"
+                 BorderThickness="0"
                  Text="{Binding Logs}"/>
     </Grid>
 </Page>
