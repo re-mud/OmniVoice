@@ -9,16 +9,51 @@
       Title="MainPage">
 
     <Grid>
-        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="200" Background="#A4B5BE" Command="{Binding ToggleMicrophoneCommand}">
+        <Button VerticalAlignment="Center" 
+                HorizontalAlignment="Center" 
+                Width="200" 
+                Height="200" 
+                Background="#525C6E" 
+                Command="{Binding ToggleMicrophoneCommand}" 
+                Panel.ZIndex="1">
             <Button.Template>
-                <ControlTemplate>
+                <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" CornerRadius="100">
                         <ContentPresenter />
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter  Property="Background" Value="LightBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
 
-        <Label x:Name="VersionLabel" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="{Binding Version}"></Label>
+        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" Width="600" Height="450" ItemsSource="{Binding EllipseModels}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="{Binding Width}" 
+                             Height="{Binding Height}" 
+                             Fill="#A4B5BE" 
+                             Panel.ZIndex="0"
+                             RenderTransformOrigin="0.5,0.5">
+                        <Ellipse.RenderTransform>
+                            <RotateTransform Angle="{Binding Rotate}"/>
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Label x:Name="VersionLabel" 
+               VerticalAlignment="Bottom" 
+               HorizontalAlignment="Right" 
+               Content="{Binding Version}"/>
     </Grid>
 </Page>

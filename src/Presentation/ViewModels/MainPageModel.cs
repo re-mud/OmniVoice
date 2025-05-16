@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using OmniVoice.Application.Services.CommandService;
 using OmniVoice.Presentation.Animations;
 using OmniVoice.Presentation.Common;
+using OmniVoice.Presentation.Common.Command;
 using OmniVoice.Presentation.Models;
 using OmniVoice.Presentation.ViewModelContracts;
 
@@ -34,13 +35,30 @@ public class MainPageModel : ViewModelBase, IMainPageModel
 
     public string Version { get; private set; } = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0.0";
 
+    public ObservableCollection<EllipseModel> EllipseModels { get => _volumeAnimationManager.EllipseModels; }
 
     private CommandService _commandService;
+    private VolumeAnimationManager _volumeAnimationManager;
+    private DispatcherTimer _timer;
 
-    public MainPageModel(CommandService commandService)
+    public MainPageModel(
+        CommandService commandService,
+        VolumeAnimationManager volumeAnimationManager,
+        DispatcherTimer timer)
     {
         _commandService = commandService;
+        _volumeAnimationManager = volumeAnimationManager;
+        _timer = timer;
+
+        _timer.Interval = TimeSpan.FromMilliseconds(30);
+        _timer.Tick += Timer_Tick;
 
         _commandService.Start();
+        _timer.Start();
+    }
+
+    private void Timer_Tick(object? sender, EventArgs e)
+    {
+        _volumeAnimationManager.Tick((float)_commandService.SpeechRecognitionService.GetVolume());
     }
 }
