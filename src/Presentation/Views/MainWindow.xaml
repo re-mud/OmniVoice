@@ -4,7 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="450" MinWidth="800" Height="450" Width="800">
+        Title="OmniVoice"
+        Height="450" 
+        Width="800"
+        MinHeight="450" 
+        MinWidth="800">
+    <Window.Resources>
+        <ResourceDictionary Source="../Resources/Styles.xaml"/>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -14,11 +22,30 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Background="#A4B5BE">
+        <ItemsControl Grid.Column="0" 
+                      Background="#A4B5BE"
+                      Padding="0,5,0,0"
+                      ItemsSource="{Binding MenuButtonModels}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Content}"
+                            Background="{Binding Color}"
+                            Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="{Binding PageId}"
+                            Style="{StaticResource MainMenuButtonStyle}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
-        </StackPanel>
-
-        <Frame Grid.Column="1" Background="#C5D9E3" Content="{Binding CurrentPage}"></Frame>
+        <Frame Grid.Column="1" 
+               NavigationUIVisibility="Hidden"
+               Background="#C5D9E3" 
+               Content="{Binding CurrentPage}"/>
     </Grid>
 </Window>
 
