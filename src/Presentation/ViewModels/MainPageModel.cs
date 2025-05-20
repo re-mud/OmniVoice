@@ -6,7 +6,7 @@ using System.Windows.Threading;
 using OmniVoice.Application.Services.CommandService;
 using OmniVoice.Presentation.Animations;
 using OmniVoice.Presentation.Common;
-using OmniVoice.Presentation.Common.Command;
+using OmniVoice.Presentation.Common.Commands;
 using OmniVoice.Presentation.Models;
 using OmniVoice.Presentation.ViewModelContracts;
 
