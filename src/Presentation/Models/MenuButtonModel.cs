@@ -1,4 +1,4 @@
-﻿using OmniVoice.Presentation.Common;
+﻿using OmniVoice.Presentation.Common.Views;
 using System.Windows.Media;
 
 namespace OmniVoice.Presentation.Models;

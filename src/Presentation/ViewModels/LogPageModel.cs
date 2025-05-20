@@ -1,6 +1,6 @@
 ﻿using OmniVoice.Domain.Services;
 using OmniVoice.Domain.Services.Events;
-using OmniVoice.Presentation.Common;
+using OmniVoice.Presentation.Common.Views;
 using OmniVoice.Presentation.ViewModelContracts;
 
 namespace OmniVoice.Presentation.ViewModels;

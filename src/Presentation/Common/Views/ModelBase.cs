@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace OmniVoice.Presentation.Common;
+namespace OmniVoice.Presentation.Common.Views;
 
-public class ViewModelBase
+public class ModelBase : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
