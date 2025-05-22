@@ -1,15 +1,19 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using OmniVoice.Domain.Services;
+﻿using OmniVoice.Domain.Services;
+using OmniVoice.Domain.SpeechRecognition;
+using OmniVoice.Domain.Microphone;
+using OmniVoice.Domain.SpeechSynthesizer;
 using OmniVoice.Infrastructure.Services;
 using OmniVoice.Infrastructure.Services.Logging;
 using OmniVoice.Infrastructure.Services.Logging.Options;
-using NAudio.Wave;
-
 using OmniVoice.Infrastructure.Services.Options;
+
+using System.Speech.Synthesis;
+
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using OmniVoice.Domain.SpeechRecognition;
-using OmniVoice.Domain.Microphone;
+using Microsoft.Extensions.DependencyInjection;
+
+using NAudio.Wave;
 
 namespace OmniVoice.Infrastructure.Configuration;
 
@@ -32,9 +36,12 @@ public static class ServiceRegistration
         // Register services
         services.AddSingleton<ILogger, Logger>();
 
-        services.AddTransient(sp => CreateVoskModel(sp, configuration));
+        services.AddTransient<Vosk.Model>(sp => CreateVoskModel(sp, configuration));
         services.AddTransient<IMicrophone, NAudioMicrophone>(sp => CreateMicrophone(sp, configuration));
         services.AddTransient<ISpeechRecognition, VoskSpeechRecognition>();
+        services.AddTransient<ISpeechSynthesizer, WindowsSpeechSynthesizer>();
+
+        services.AddTransient<SpeechSynthesizer>();
 
         return services;
     }
