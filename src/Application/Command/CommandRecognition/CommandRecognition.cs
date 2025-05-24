@@ -5,7 +5,7 @@ using OmniVoice.Domain.Models;
 
 namespace OmniVoice.Application.Command.CommandRecognition;
 
-public class CommandRecognition
+public class CommandRecognition : ICommandRecognition
 {
     private IIdentifiedEntity<ICommand>[]? _commands;
     private IIdentifiedEntity<IParser>[]? _parsers;
@@ -28,10 +28,6 @@ public class CommandRecognition
         _parsers = parsers;
     }
 
-    /// <summary>
-    /// commands and parsers are required before execution
-    /// </summary>
-    /// <exception cref="ArgumentNullException"></exception>
     public CommandRecognitionResult[] Recognize(string text)
     {
         ArgumentNullException.ThrowIfNull(_parsers);
