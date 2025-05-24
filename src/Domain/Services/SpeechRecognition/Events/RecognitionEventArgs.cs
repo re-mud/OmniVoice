@@ -1,4 +1,4 @@
-﻿namespace OmniVoice.Application.Services.SpeechRecognition.Events;
+﻿namespace OmniVoice.Domain.Services.SpeechRecognition.Events;
 
 public class RecognitionEventArgs(string text) : EventArgs
 {

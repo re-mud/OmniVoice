@@ -1,6 +1,8 @@
-﻿using OmniVoice.Application.Command.CommandRecognition;
+﻿using OmniVoice.Domain.Services.Logging;
+using OmniVoice.Domain.Services.SpeechRecognition.Events;
+using OmniVoice.Application.Command.CommandRecognition;
+using OmniVoice.Application.Services.CommandService.States;
 using OmniVoice.Application.Services.SpeechRecognition;
-using OmniVoice.Domain.Services.Logging;
 
 namespace OmniVoice.Application.Services.CommandService;
 
@@ -28,7 +30,7 @@ public class CommandService
         SpeechRecognitionService.RecognitionCompleted += SpeechRecognitionService_RecognitionCompleted;
     }
 
-    private void SpeechRecognitionService_RecognitionCompleted(object? sender, SpeechRecognition.Events.RecognitionEventArgs e)
+    private void SpeechRecognitionService_RecognitionCompleted(object? sender, RecognitionEventArgs e)
     {
 #if DEBUG
         _logger.Debug($"hears: \"{e.Text}\"");
@@ -56,9 +58,16 @@ public class CommandService
     /// <summary>
     /// Start recognizing commands and executing them
     /// </summary>
-    public void Start() => SpeechRecognitionService.Start();
+    public void Start()
+    {
+        SpeechRecognitionService.Start();
+    }
+
     /// <summary>
     /// Stop recognizing
     /// </summary>
-    public void Stop() => SpeechRecognitionService.Stop();
+    public void Stop()
+    {
+        SpeechRecognitionService.Stop();
+    }
 }
