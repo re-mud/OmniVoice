@@ -5,11 +5,11 @@ using OmniVoice.Presentation.ViewModelContracts;
 using OmniVoice.Presentation.ViewModels;
 using OmniVoice.Presentation.Views;
 using OmniVoice.Presentation.Animations;
-using OmniVoice.Domain.Services;
 using OmniVoice.Presentation.Models;
 using OmniVoice.Application.Common.IdentifiedEntities;
 
 using System.Windows.Threading;
+using OmniVoice.Domain.Services.Logging;
 
 namespace OmniVoice.Presentation.Configuration;
 

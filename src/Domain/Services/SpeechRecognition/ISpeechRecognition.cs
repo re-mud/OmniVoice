@@ -1,6 +1,6 @@
-﻿using OmniVoice.Domain.SpeechRecognition.Enums;
+﻿using OmniVoice.Domain.Services.SpeechRecognition.Enums;
 
-namespace OmniVoice.Domain.SpeechRecognition;
+namespace OmniVoice.Domain.Services.SpeechRecognition;
 
 public interface ISpeechRecognition
 {

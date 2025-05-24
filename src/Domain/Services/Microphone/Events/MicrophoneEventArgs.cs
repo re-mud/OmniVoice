@@ -1,4 +1,4 @@
-﻿namespace OmniVoice.Domain.Microphone.Events;
+﻿namespace OmniVoice.Domain.Services.Microphone.Events;
 
 public class MicrophoneEventArgs(byte[] buffer, int length) : EventArgs
 {

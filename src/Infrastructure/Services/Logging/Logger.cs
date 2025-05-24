@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
-
-using OmniVoice.Domain.Services;
-using OmniVoice.Domain.Services.Enums;
-using OmniVoice.Domain.Services.Events;
+using OmniVoice.Domain.Services.Logging;
+using OmniVoice.Domain.Services.Logging.Enums;
+using OmniVoice.Domain.Services.Logging.Events;
 using OmniVoice.Infrastructure.Services.Logging.Options;
 
 namespace OmniVoice.Infrastructure.Services.Logging;

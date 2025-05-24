@@ -1,6 +1,6 @@
-﻿using OmniVoice.Domain.Services;
-using OmniVoice.Application.Command.CommandRecognition;
+﻿using OmniVoice.Application.Command.CommandRecognition;
 using OmniVoice.Application.Services.SpeechRecognition;
+using OmniVoice.Domain.Services.Logging;
 
 namespace OmniVoice.Application.Services.CommandService;
 

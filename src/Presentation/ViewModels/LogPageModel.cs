@@ -1,5 +1,5 @@
-﻿using OmniVoice.Domain.Services;
-using OmniVoice.Domain.Services.Events;
+﻿using OmniVoice.Domain.Services.Logging;
+using OmniVoice.Domain.Services.Logging.Events;
 using OmniVoice.Presentation.Common.Views;
 using OmniVoice.Presentation.ViewModelContracts;
 

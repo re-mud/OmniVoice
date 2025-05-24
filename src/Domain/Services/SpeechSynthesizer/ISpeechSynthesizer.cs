@@ -1,4 +1,4 @@
-﻿namespace OmniVoice.Domain.SpeechSynthesizer;
+﻿namespace OmniVoice.Domain.Services.SpeechSynthesizer;
 
 public interface ISpeechSynthesizer
 {

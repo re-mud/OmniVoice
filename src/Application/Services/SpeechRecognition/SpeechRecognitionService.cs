@@ -1,8 +1,8 @@
-﻿using OmniVoice.Domain.SpeechRecognition.Enums;
-using OmniVoice.Domain.Microphone.Events;
-using OmniVoice.Application.Services.SpeechRecognition.Events;
-using OmniVoice.Domain.SpeechRecognition;
-using OmniVoice.Domain.Microphone;
+﻿using OmniVoice.Application.Services.SpeechRecognition.Events;
+using OmniVoice.Domain.Services.SpeechRecognition;
+using OmniVoice.Domain.Services.SpeechRecognition.Enums;
+using OmniVoice.Domain.Services.Microphone;
+using OmniVoice.Domain.Services.Microphone.Events;
 
 namespace OmniVoice.Application.Services.SpeechRecognition;
 

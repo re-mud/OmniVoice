@@ -1,6 +1,6 @@
-﻿using OmniVoice.Domain.Services.Events;
+﻿using OmniVoice.Domain.Services.Logging.Events;
 
-namespace OmniVoice.Domain.Services;
+namespace OmniVoice.Domain.Services.Logging;
 
 public interface ILogger
 {

@@ -1,6 +1,5 @@
 ﻿using System.Speech.Synthesis;
-
-using OmniVoice.Domain.SpeechSynthesizer;
+using OmniVoice.Domain.Services.SpeechSynthesizer;
 
 namespace OmniVoice.Infrastructure.Services;
 

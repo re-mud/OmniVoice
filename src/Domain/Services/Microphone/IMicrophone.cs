@@ -1,6 +1,6 @@
-﻿using OmniVoice.Domain.Microphone.Events;
+﻿using OmniVoice.Domain.Services.Microphone.Events;
 
-namespace OmniVoice.Domain.Microphone;
+namespace OmniVoice.Domain.Services.Microphone;
 
 public interface IMicrophone
 {

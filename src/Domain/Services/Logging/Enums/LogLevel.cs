@@ -1,4 +1,4 @@
-﻿namespace OmniVoice.Domain.Services.Enums;
+﻿namespace OmniVoice.Domain.Services.Logging.Enums;
 
 public enum LogLevel
 {

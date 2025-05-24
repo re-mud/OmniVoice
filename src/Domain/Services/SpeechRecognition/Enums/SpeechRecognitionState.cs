@@ -1,4 +1,4 @@
-﻿namespace OmniVoice.Domain.SpeechRecognition.Enums;
+﻿namespace OmniVoice.Domain.Services.SpeechRecognition.Enums;
 
 public enum SpeechRecognitionState
 {
