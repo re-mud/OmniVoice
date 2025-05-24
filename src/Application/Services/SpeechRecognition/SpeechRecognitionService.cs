@@ -6,7 +6,7 @@ using OmniVoice.Domain.Services.SpeechRecognition.Events;
 
 namespace OmniVoice.Application.Services.SpeechRecognition;
 
-public class SpeechRecognitionService
+public class SpeechRecognitionService : ISpeechRecognitionService
 {
     private ISpeechRecognition _speechRecognition;
     private IMicrophone _microphone;
@@ -15,7 +15,7 @@ public class SpeechRecognitionService
     private double? _cachedVolume;
 
     public event EventHandler<RecognitionEventArgs>? RecognitionCompleted;
-    public event EventHandler<RecognitionEventArgs>? PartialRecognitionAvaible;
+    public event EventHandler<RecognitionEventArgs>? PartialRecognitionAvailable;
     public bool IsRunning { get; private set; } = false;
 
     public int DeviceNumber
@@ -99,7 +99,7 @@ public class SpeechRecognitionService
         switch (state)
         {
             case SpeechRecognitionState.Partial:
-                PartialRecognitionAvaible?.Invoke(null, new RecognitionEventArgs(
+                PartialRecognitionAvailable?.Invoke(null, new RecognitionEventArgs(
                     _speechRecognition.PartialResult()
                 ));
                 break;
