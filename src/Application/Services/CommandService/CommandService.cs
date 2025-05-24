@@ -1,4 +1,5 @@
 ﻿using OmniVoice.Domain.Services.Logging;
+using OmniVoice.Domain.Command.Models;
 using OmniVoice.Domain.Services.SpeechRecognition.Events;
 using OmniVoice.Application.Command.CommandRecognition;
 using OmniVoice.Application.Services.CommandService.States;

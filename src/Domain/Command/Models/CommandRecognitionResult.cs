@@ -1,6 +1,4 @@
-﻿using OmniVoice.Domain.Command;
-
-namespace OmniVoice.Application.Command.CommandRecognition;
+﻿namespace OmniVoice.Domain.Command.Models;
 
 public class CommandRecognitionResult(string key, ICommand command, float probability, object[] extractedParams)
 {
