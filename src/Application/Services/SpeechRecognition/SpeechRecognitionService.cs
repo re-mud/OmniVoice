@@ -3,6 +3,7 @@ using OmniVoice.Domain.Services.SpeechRecognition.Enums;
 using OmniVoice.Domain.Services.Microphone;
 using OmniVoice.Domain.Services.Microphone.Events;
 using OmniVoice.Domain.Services.SpeechRecognition.Events;
+using OmniVoice.Domain.Services.Logging;
 
 namespace OmniVoice.Application.Services.SpeechRecognition;
 
@@ -10,6 +11,7 @@ public class SpeechRecognitionService : ISpeechRecognitionService
 {
     private ISpeechRecognition _speechRecognition;
     private IMicrophone _microphone;
+    private ILogger _logger;
 
     private byte[]? _lastBuffer; 
     private double? _cachedVolume;
@@ -24,13 +26,14 @@ public class SpeechRecognitionService : ISpeechRecognitionService
         set => _microphone.DeviceNumber = value;
     }
 
-    public SpeechRecognitionService(ISpeechRecognition speechRecognition, IMicrophone microphone)
+    public SpeechRecognitionService(ISpeechRecognition speechRecognition, IMicrophone microphone, ILogger logger)
     {
         ArgumentNullException.ThrowIfNull(speechRecognition, nameof(speechRecognition));
         ArgumentNullException.ThrowIfNull(microphone, nameof(microphone));
 
         _speechRecognition = speechRecognition;
         _microphone = microphone;
+        _logger = logger;
 
         _microphone.DataAvailable += Microphone_DataAvailable;
     }
@@ -76,9 +79,16 @@ public class SpeechRecognitionService : ISpeechRecognitionService
 
     public void Start()
     {
-        IsRunning = true;
+        try
+        {
+            _microphone.Start();
 
-        _microphone.Start();
+            IsRunning = true;
+        }
+        catch
+        {
+            _logger.Error("Failed to load microphone");
+        }
     }
 
     public void Stop()
