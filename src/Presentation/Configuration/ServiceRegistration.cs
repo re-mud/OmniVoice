@@ -6,10 +6,10 @@ using OmniVoice.Presentation.ViewModels;
 using OmniVoice.Presentation.Views;
 using OmniVoice.Presentation.Animations;
 using OmniVoice.Presentation.Models;
-using OmniVoice.Application.Common.IdentifiedEntities;
 
 using System.Windows.Threading;
 using OmniVoice.Domain.Services.Logging;
+using OmniVoice.Presentation.Common.IdentifiedEntities;
 
 namespace OmniVoice.Presentation.Configuration;
 

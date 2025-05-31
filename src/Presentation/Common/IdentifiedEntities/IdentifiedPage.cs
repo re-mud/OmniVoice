@@ -1,8 +1,7 @@
 ﻿using System.Windows.Controls;
-using OmniVoice.Domain.Command;
 using OmniVoice.Domain.Models;
 
-namespace OmniVoice.Application.Common.IdentifiedEntities;
+namespace OmniVoice.Presentation.Common.IdentifiedEntities;
 
 public class IdentifiedPage : IIdentifiedEntity<Page>
 {
