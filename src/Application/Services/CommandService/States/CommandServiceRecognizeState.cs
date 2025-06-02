@@ -34,7 +34,7 @@ public class CommandServiceRecognizeState : ICommandServiceState
         }
 
 #if DEBUG
-        context.Logger.Debug($"recognized Key:\"{best.Key}\" Command:\"{best.Command.GetCommand()}\"");
+        context.Logger.Debug($"recognized Key:\"{best.Key}\" Command:\"{best.Command.GetCommandString()}\"");
 #endif
 
         best.Execute();

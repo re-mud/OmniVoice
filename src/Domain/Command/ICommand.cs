@@ -17,5 +17,5 @@ public interface ICommand
     /// <summary>
     /// string display of the command, used for hints
     /// </summary>
-    string GetCommand();
+    string GetCommandString();
 }

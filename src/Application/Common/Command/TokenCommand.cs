@@ -59,7 +59,7 @@ public class TokenCommand : ICommand
             resultText.ToString());
     }
 
-    public virtual string GetCommand()
+    public virtual string GetCommandString()
     {
         return string.Join(' ', Tokens);
     }
