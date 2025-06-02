@@ -29,7 +29,7 @@ public static class ServiceRegistration
     private static void AddIdentifiedStates(IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient(sp => new IdentifiedState("Recognize",
-            new CommandServiceRecognizeState(sp.GetServices<IdentifiedCommand>().ToArray())));
+            new RecognizingState(sp.GetServices<IdentifiedCommand>().ToArray())));
     }
 
     private static void AddServices(IServiceCollection services, IConfiguration configuration)

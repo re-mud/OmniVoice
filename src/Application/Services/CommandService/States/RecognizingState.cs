@@ -2,16 +2,16 @@
 using OmniVoice.Domain.Services.CommandService.States;
 using OmniVoice.Domain.Services.CommandService;
 using OmniVoice.Domain.Command.Models;
-using OmniVoice.Application.Models;
+using OmniVoice.Domain.Command;
 using OmniVoice.Domain.Models;
 
 namespace OmniVoice.Application.Services.CommandService.States;
 
-public class CommandServiceRecognizeState : ICommandServiceState
+public class RecognizingState : ICommandServiceState
 {
-    private IdentifiedCommand[] _commands;
+    private IIdentifiedEntity<ICommand>[] _commands;
 
-    public CommandServiceRecognizeState(IdentifiedCommand[] commands)
+    public RecognizingState(IIdentifiedEntity<ICommand>[] commands)
     {
         _commands = commands;
     }
