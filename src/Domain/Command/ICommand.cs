@@ -13,7 +13,7 @@ public interface ICommand
     /// execute command
     /// </summary>
     /// <param name="args">data from parsers</param>
-    void Execute(object[] args);
+    CommandExecuteResult Execute(object[] args);
     /// <summary>
     /// string display of the command, used for hints
     /// </summary>

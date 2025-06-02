@@ -13,20 +13,23 @@ public class TokenCommand : ICommand
         init;
     }
     protected readonly string[] Tokens;
-    private readonly int _tokensLenght;
+    private readonly int _tokensLength;
 
-    /// <param name="tokens">words, their parts or combinations of words</param>
+    /// <param name="tokens">Words, their parts or combinations of words.</param>
     /// <param name="requiredParams">required types params</param>
     public TokenCommand(string[] tokens, string[] requiredParams)
     {
         RequiredParams = requiredParams;
         Tokens = tokens;
-        _tokensLenght = Tokens.Sum(x => x.Length);
+        _tokensLength = Tokens.Sum(x => x.Length);
 
         Array.Sort(Tokens, (a, b) => b.Length.CompareTo(a.Length));
     }
 
-    public virtual void Execute(object[] args) { }
+    public virtual CommandExecuteResult Execute(object[] args) 
+    {
+        return new();
+    }
 
     public CommandParseResult Parse(string text)
     {
@@ -52,7 +55,7 @@ public class TokenCommand : ICommand
         }
 
         return new CommandParseResult(
-            count / _tokensLenght,
+            count / _tokensLength,
             resultText.ToString());
     }
 

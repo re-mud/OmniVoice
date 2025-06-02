@@ -55,7 +55,7 @@ public class CommandServiceRecognizeState : ICommandServiceState
         return null;
     }
 
-    public void Enter(ICommandServiceContext context)
+    public void Enter(ICommandServiceContext context, object[]? args = null)
     {
         context.CommandRecognition.SetCommands(_commands);
     }

@@ -47,7 +47,7 @@ public class CommandService : ICommandServiceContext
     }
 
     /// <summary>
-    /// Start recognizing commands and executing them
+    /// Start recognizing commands and executing them.
     /// </summary>
     public void Start()
     {
@@ -55,14 +55,14 @@ public class CommandService : ICommandServiceContext
     }
 
     /// <summary>
-    /// Stop recognizing
+    /// Stop recognizing.
     /// </summary>
     public void Stop()
     {
         State?.Stop(this);
     }
 
-    public void SetState(string id)
+    public void SetState(string id, object[]? args = null)
     {
         IdentifiedState? newIdentifiedState = _states.FirstOrDefault(identifiedState => identifiedState.Id == id);
 
@@ -70,7 +70,7 @@ public class CommandService : ICommandServiceContext
         {
             State?.Exit(this);
             State = newIdentifiedState.Value;
-            State.Enter(this);
+            State.Enter(this, args);
         }
         else
         {
