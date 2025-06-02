@@ -9,6 +9,7 @@ using OmniVoice.Domain.Services.CommandService.States;
 using OmniVoice.Application.Command.CommandRecognition;
 using OmniVoice.Application.Services.SpeechRecognition;
 using OmniVoice.Application.Models;
+using OmniVoice.Domain.Models;
 
 namespace OmniVoice.Application.Services.CommandService;
 
@@ -43,7 +44,12 @@ public class CommandService : ICommandServiceContext
 
     private void SpeechRecognitionService_RecognitionCompleted(object? sender, RecognitionEventArgs e)
     {
-        State?.OnRecognitionCompleted(this, e);
+        StateTransition? transition = State?.OnRecognitionCompleted(this, e);
+
+        if (transition != null)
+        {
+            ApplyTransition(transition);
+        }
     }
 
     /// <summary>
@@ -51,7 +57,12 @@ public class CommandService : ICommandServiceContext
     /// </summary>
     public void Start()
     {
-        State?.Start(this);
+        StateTransition? transition = State?.Start(this);
+
+        if (transition != null)
+        {
+            ApplyTransition(transition);
+        }
     }
 
     /// <summary>
@@ -59,22 +70,27 @@ public class CommandService : ICommandServiceContext
     /// </summary>
     public void Stop()
     {
-        State?.Stop(this);
+        StateTransition? transition = State?.Stop(this);
+
+        if (transition != null)
+        {
+            ApplyTransition(transition);
+        }
     }
 
-    public void SetState(string id, object[]? args = null)
+    public void ApplyTransition(StateTransition transition)
     {
-        IdentifiedState? newIdentifiedState = _states.FirstOrDefault(identifiedState => identifiedState.Id == id);
+        IdentifiedState? newIdentifiedState = _states.FirstOrDefault(identifiedState => identifiedState.Id == transition.StateId);
 
         if (newIdentifiedState != null)
         {
             State?.Exit(this);
             State = newIdentifiedState.Value;
-            State.Enter(this, args);
+            State.Enter(this, transition.Args);
         }
         else
         {
-            Logger.Fatal($"No found state with id:\"{id}\"");
+            Logger.Error($"No found state with id:\"{transition.StateId}\"");
         }
     }
 }

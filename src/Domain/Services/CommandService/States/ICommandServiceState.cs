@@ -1,23 +1,24 @@
 ﻿using OmniVoice.Domain.Services.SpeechRecognition.Events;
+using OmniVoice.Domain.Models;
 
 namespace OmniVoice.Domain.Services.CommandService.States;
 
 public interface ICommandServiceState
 {
     /// <returns>
-    /// Returns the identifier of the new state, or null if no change is required.
+    /// Returns the new state transition, or null if no change is required.
     /// </returns>
-    string? Start(ICommandServiceContext context);
+    StateTransition? Start(ICommandServiceContext context);
 
     /// <returns>
-    /// Returns the identifier of the new state, or null if no change is required.
+    /// Returns the new state transition, or null if no change is required.
     /// </returns>
-    string? Stop(ICommandServiceContext context);
+    StateTransition? Stop(ICommandServiceContext context);
 
     /// <returns>
-    /// Returns the identifier of the new state, or null if no change is required.
+    /// Returns the new state transition, or null if no change is required.
     /// </returns>
-    string? OnRecognitionCompleted(ICommandServiceContext context, RecognitionEventArgs e);
+    StateTransition? OnRecognitionCompleted(ICommandServiceContext context, RecognitionEventArgs e);
 
     /// <summary>
     /// Enters the state with arguments.

@@ -1,5 +1,6 @@
 ﻿using OmniVoice.Domain.Command;
 using OmniVoice.Domain.Command.Models;
+using OmniVoice.Domain.Models;
 
 using System.Text;
 
@@ -16,7 +17,7 @@ public class TokenCommand : ICommand
     private readonly int _tokensLength;
 
     /// <param name="tokens">Words, their parts or combinations of words.</param>
-    /// <param name="requiredParams">required types params</param>
+    /// <param name="requiredParams">Required types params.</param>
     public TokenCommand(string[] tokens, string[] requiredParams)
     {
         RequiredParams = requiredParams;
@@ -26,10 +27,7 @@ public class TokenCommand : ICommand
         Array.Sort(Tokens, (a, b) => b.Length.CompareTo(a.Length));
     }
 
-    public virtual CommandExecuteResult Execute(object[] args) 
-    {
-        return new();
-    }
+    public virtual StateTransition Execute(object[] args) => new();
 
     public CommandParseResult Parse(string text)
     {

@@ -43,7 +43,7 @@ public static class ServiceRegistration
             serviceProvider.GetServices<IdentifiedState>().ToArray(),
             serviceProvider.GetRequiredService<ILogger>());
 
-        service.SetState("Recognize");
+        service.ApplyTransition(new("Recognize"));
 
         return service;
     }

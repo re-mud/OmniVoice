@@ -3,6 +3,7 @@ using OmniVoice.Domain.Services.CommandService.States;
 using OmniVoice.Domain.Services.CommandService;
 using OmniVoice.Domain.Command.Models;
 using OmniVoice.Application.Models;
+using OmniVoice.Domain.Models;
 
 namespace OmniVoice.Application.Services.CommandService.States;
 
@@ -15,7 +16,7 @@ public class CommandServiceRecognizeState : ICommandServiceState
         _commands = commands;
     }
 
-    public string? OnRecognitionCompleted(ICommandServiceContext context, RecognitionEventArgs e)
+    public StateTransition? OnRecognitionCompleted(ICommandServiceContext context, RecognitionEventArgs e)
     {
 #if DEBUG
         context.Logger.Debug($"hears: \"{e.Text}\"");
@@ -37,18 +38,17 @@ public class CommandServiceRecognizeState : ICommandServiceState
         context.Logger.Debug($"recognized Key:\"{best.Key}\" Command:\"{best.Command.GetCommandString()}\"");
 #endif
 
-        best.Execute();
-        return null;
+        return best.Execute();
     }
 
-    public string? Start(ICommandServiceContext context)
+    public StateTransition? Start(ICommandServiceContext context)
     {
         context.SpeechRecognitionService.Start();
 
         return null;
     }
 
-    public string? Stop(ICommandServiceContext context)
+    public StateTransition? Stop(ICommandServiceContext context)
     {
         context.SpeechRecognitionService.Stop();
 
