@@ -22,12 +22,13 @@ public class CommandService : ICommandServiceContext
     public bool IsRunning { get => SpeechRecognitionService.IsRunning; }
     public ICommandServiceState? State { get; private set; }
 
-    private IdentifiedState[] _states;
+    private IIdentifiedEntity<ICommandServiceState>[] _states;
 
     public CommandService(
-        CommandRecognition commandRecognition,
-        SpeechRecognitionService speechRecognitionService,
-        IdentifiedState[] states,
+        ICommandRecognition commandRecognition,
+        ISpeechRecognitionService speechRecognitionService,
+        ISpeechSynthesizer SpeechSynthesizer,
+        IIdentifiedEntity<ICommandServiceState>[] states,
         ILogger logger)
     {
         ArgumentNullException.ThrowIfNull(commandRecognition, nameof(commandRecognition));
@@ -80,7 +81,7 @@ public class CommandService : ICommandServiceContext
 
     public void ApplyTransition(StateTransition transition)
     {
-        IdentifiedState? newIdentifiedState = _states.FirstOrDefault(identifiedState => identifiedState.Id == transition.StateId);
+        IIdentifiedEntity<ICommandServiceState>? newIdentifiedState = _states.FirstOrDefault(identifiedState => identifiedState.Id == transition.StateId);
 
         if (newIdentifiedState != null)
         {
