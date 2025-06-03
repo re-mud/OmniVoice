@@ -7,11 +7,11 @@ using OmniVoice.Domain.Models;
 
 namespace OmniVoice.Application.Services.CommandService.States;
 
-public class RecognizingState : ICommandServiceState
+public class WaitingState : ICommandServiceState
 {
     private IIdentifiedEntity<ICommand>[] _commands;
 
-    public RecognizingState(IIdentifiedEntity<ICommand>[] commands)
+    public WaitingState(IIdentifiedEntity<ICommand>[] commands)
     {
         _commands = commands;
     }
@@ -22,20 +22,7 @@ public class RecognizingState : ICommandServiceState
 
         if (results.Length == 0) return null;
 
-        CommandRecognitionResult best = results[0];
-        foreach (var result in results)
-        {
-            if (result.Probability > best.Probability)
-            {
-                best = result;
-            }
-        }
-
-#if DEBUG
-        context.Logger.Debug($"Recognized Key:\"{best.Key}\" Command:\"{best.Command.GetCommandString()}\"");
-#endif
-
-        return best.Execute();
+        return new("Recognize");
     }
 
     public StateTransition? Start(ICommandServiceContext context)
@@ -49,7 +36,7 @@ public class RecognizingState : ICommandServiceState
     {
         context.SpeechRecognitionService.Stop();
 
-        return new("Wait");
+        return null;
     }
 
     public void Enter(ICommandServiceContext context, object[]? args = null)

@@ -30,6 +30,8 @@ public static class ServiceRegistration
     {
         services.AddTransient(sp => new IdentifiedState("Recognize",
             new RecognizingState(sp.GetServices<IdentifiedCommand>().ToArray())));
+        services.AddTransient(sp => new IdentifiedState("Wait",
+            new WaitingState(sp.GetServices<IdentifiedCommandWait>().ToArray())));
     }
 
     private static void AddServices(IServiceCollection services, IConfiguration configuration)
@@ -47,7 +49,7 @@ public static class ServiceRegistration
             serviceProvider.GetServices<IdentifiedState>().ToArray(),
             serviceProvider.GetRequiredService<ILogger>());
 
-        service.ApplyTransition(new("Recognize"));
+        service.ApplyTransition(new("Wait"));
 
         return service;
     }
