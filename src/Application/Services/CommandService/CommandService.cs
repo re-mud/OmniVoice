@@ -27,7 +27,7 @@ public class CommandService : ICommandServiceContext
     public CommandService(
         ICommandRecognition commandRecognition,
         ISpeechRecognitionService speechRecognitionService,
-        ISpeechSynthesizer SpeechSynthesizer,
+        ISpeechSynthesizer speechSynthesizer,
         IIdentifiedEntity<ICommandServiceState>[] states,
         ILogger logger)
     {
@@ -35,6 +35,7 @@ public class CommandService : ICommandServiceContext
         ArgumentNullException.ThrowIfNull(speechRecognitionService, nameof(speechRecognitionService));
         ArgumentNullException.ThrowIfNull(logger, nameof(logger));
 
+        SpeechSynthesizer = speechSynthesizer;
         CommandRecognition = commandRecognition;
         SpeechRecognitionService = speechRecognitionService;
         Logger = logger;
@@ -97,11 +98,9 @@ public class CommandService : ICommandServiceContext
 #if DEBUG
             Logger.Debug($"Change state to \"{newIdentifiedState.Id}\"");
 #endif
-            SpeechRecognitionService.Stop();
             State?.Exit(this);
             State = newIdentifiedState.Value;
             State.Enter(this, transition.Args);
-            SpeechRecognitionService.Start();
         }
         else
         {
