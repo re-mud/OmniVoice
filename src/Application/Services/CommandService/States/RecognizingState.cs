@@ -18,9 +18,6 @@ public class RecognizingState : ICommandServiceState
 
     public StateTransition? OnRecognitionCompleted(ICommandServiceContext context, RecognitionEventArgs e)
     {
-#if DEBUG
-        context.Logger.Debug($"hears: \"{e.Text}\"");
-#endif
         CommandRecognitionResult[] results = context.CommandRecognition.Recognize(e.Text);
 
         if (results.Length == 0) return null;

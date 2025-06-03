@@ -45,6 +45,9 @@ public class CommandService : ICommandServiceContext
 
     private void SpeechRecognitionService_RecognitionCompleted(object? sender, RecognitionEventArgs e)
     {
+#if DEBUG
+        Logger.Debug($"Hears: \"{e.Text}\"");
+#endif
         StateTransition? transition = State?.OnRecognitionCompleted(this, e);
 
         if (transition != null)
@@ -58,6 +61,9 @@ public class CommandService : ICommandServiceContext
     /// </summary>
     public void Start()
     {
+#if DEBUG
+        Logger.Debug("Start recognizing");
+#endif
         StateTransition? transition = State?.Start(this);
 
         if (transition != null)
@@ -71,6 +77,9 @@ public class CommandService : ICommandServiceContext
     /// </summary>
     public void Stop()
     {
+#if DEBUG
+        Logger.Debug("Stop recognizing");
+#endif
         StateTransition? transition = State?.Stop(this);
 
         if (transition != null)
@@ -85,9 +94,14 @@ public class CommandService : ICommandServiceContext
 
         if (newIdentifiedState != null)
         {
+#if DEBUG
+            Logger.Debug($"Change state to \"{newIdentifiedState.Id}\"");
+#endif
+            SpeechRecognitionService.Stop();
             State?.Exit(this);
             State = newIdentifiedState.Value;
             State.Enter(this, transition.Args);
+            SpeechRecognitionService.Start();
         }
         else
         {
