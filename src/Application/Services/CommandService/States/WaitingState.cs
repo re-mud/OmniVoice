@@ -2,8 +2,8 @@
 using OmniVoice.Domain.Services.CommandService.States;
 using OmniVoice.Domain.Services.CommandService;
 using OmniVoice.Domain.Command.Models;
-using OmniVoice.Domain.Command;
 using OmniVoice.Domain.Models;
+using OmniVoice.Domain.Command.Interfaces;
 
 namespace OmniVoice.Application.Services.CommandService.States;
 

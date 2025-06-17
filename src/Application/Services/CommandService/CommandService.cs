@@ -3,13 +3,13 @@ using OmniVoice.Domain.Command.Models;
 using OmniVoice.Domain.Services.SpeechRecognition.Events;
 using OmniVoice.Domain.Services.CommandService;
 using OmniVoice.Domain.Services.SpeechSynthesizer;
-using OmniVoice.Domain.Command;
 using OmniVoice.Domain.Services.SpeechRecognition;
 using OmniVoice.Domain.Services.CommandService.States;
 using OmniVoice.Application.Command.CommandRecognition;
 using OmniVoice.Application.Services.SpeechRecognition;
 using OmniVoice.Application.Models;
 using OmniVoice.Domain.Models;
+using OmniVoice.Domain.Command.Interfaces;
 
 namespace OmniVoice.Application.Services.CommandService;
 
