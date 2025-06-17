@@ -15,19 +15,24 @@ public class TokenCommand : ICommand
     }
     protected readonly string[] Tokens;
     private readonly int _tokensLength;
+    private readonly Func<object[], StateTransition> _executeFunc;
 
     /// <param name="tokens">Words, their parts or combinations of words.</param>
     /// <param name="requiredParams">Required types params.</param>
-    public TokenCommand(string[] tokens, string[] requiredParams)
+    public TokenCommand(
+        string[] tokens, 
+        string[] requiredParams, 
+        Func<object[], StateTransition> executeFunc)
     {
         RequiredParams = requiredParams;
         Tokens = tokens;
         _tokensLength = Tokens.Sum(x => x.Length);
+        _executeFunc = executeFunc;
 
         Array.Sort(Tokens, (a, b) => b.Length.CompareTo(a.Length));
     }
 
-    public virtual StateTransition Execute(object[] args) => new();
+    public StateTransition Execute(object[] args) => _executeFunc.Invoke(args);
 
     public CommandParseResult Parse(string text)
     {
@@ -57,7 +62,7 @@ public class TokenCommand : ICommand
             resultText.ToString());
     }
 
-    public virtual string GetCommandString()
+    public string GetCommandString()
     {
         return string.Join(' ', Tokens);
     }
