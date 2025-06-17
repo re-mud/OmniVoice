@@ -2,14 +2,14 @@
 using Microsoft.Extensions.Configuration;
 
 using OmniVoice.Application.Services.CommandService.States;
+using OmniVoice.Application.Services.CommandRecognition;
 using OmniVoice.Application.Services.SpeechRecognition;
-using OmniVoice.Application.Command.CommandRecognition;
 using OmniVoice.Application.Services.CommandService;
 using OmniVoice.Application.Models;
 using OmniVoice.Domain.Services.SpeechRecognition;
 using OmniVoice.Domain.Services.SpeechSynthesizer;
-using OmniVoice.Domain.Services.Logging;
 using OmniVoice.Domain.Command.Interfaces;
+using OmniVoice.Domain.Services.Logging;
 
 namespace OmniVoice.Application.Configuration;
 

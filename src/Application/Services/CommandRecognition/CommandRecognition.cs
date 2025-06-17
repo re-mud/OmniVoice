@@ -1,6 +1,6 @@
-﻿using OmniVoice.Domain.Analyzers;
-using OmniVoice.Domain.Command.Interfaces;
+﻿using OmniVoice.Domain.Command.Interfaces;
 using OmniVoice.Domain.Command.Models;
+using OmniVoice.Domain.Analyzers;
 using OmniVoice.Domain.Models;
 
 namespace OmniVoice.Application.Services.CommandRecognition;

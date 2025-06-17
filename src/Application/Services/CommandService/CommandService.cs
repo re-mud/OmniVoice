@@ -1,15 +1,11 @@
-﻿using OmniVoice.Domain.Services.Logging;
-using OmniVoice.Domain.Command.Models;
-using OmniVoice.Domain.Services.SpeechRecognition.Events;
-using OmniVoice.Domain.Services.CommandService;
+﻿using OmniVoice.Domain.Services.SpeechRecognition.Events;
+using OmniVoice.Domain.Services.CommandService.States;
 using OmniVoice.Domain.Services.SpeechSynthesizer;
 using OmniVoice.Domain.Services.SpeechRecognition;
-using OmniVoice.Domain.Services.CommandService.States;
-using OmniVoice.Application.Command.CommandRecognition;
-using OmniVoice.Application.Services.SpeechRecognition;
-using OmniVoice.Application.Models;
-using OmniVoice.Domain.Models;
+using OmniVoice.Domain.Services.CommandService;
 using OmniVoice.Domain.Command.Interfaces;
+using OmniVoice.Domain.Services.Logging;
+using OmniVoice.Domain.Models;
 
 namespace OmniVoice.Application.Services.CommandService;
 
