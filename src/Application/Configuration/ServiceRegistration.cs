@@ -9,7 +9,7 @@ using OmniVoice.Application.Models;
 using OmniVoice.Domain.Services.SpeechRecognition;
 using OmniVoice.Domain.Services.SpeechSynthesizer;
 using OmniVoice.Domain.Services.Logging;
-using OmniVoice.Domain.Command;
+using OmniVoice.Domain.Command.Interfaces;
 
 namespace OmniVoice.Application.Configuration;
 

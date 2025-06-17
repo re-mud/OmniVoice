@@ -2,7 +2,7 @@
 using OmniVoice.Domain.Command.Models;
 using OmniVoice.Domain.Models;
 
-namespace OmniVoice.Domain.Command;
+namespace OmniVoice.Domain.Command.Interfaces;
 
 public interface ICommandRecognition
 {

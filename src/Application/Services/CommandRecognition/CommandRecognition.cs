@@ -3,7 +3,7 @@ using OmniVoice.Domain.Command.Interfaces;
 using OmniVoice.Domain.Command.Models;
 using OmniVoice.Domain.Models;
 
-namespace OmniVoice.Application.Command.CommandRecognition;
+namespace OmniVoice.Application.Services.CommandRecognition;
 
 public class CommandRecognition : ICommandRecognition
 {
