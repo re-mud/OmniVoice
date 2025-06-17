@@ -1,7 +1,7 @@
 ﻿using OmniVoice.Domain.Services.SpeechRecognition;
 using OmniVoice.Domain.Services.SpeechSynthesizer;
 using OmniVoice.Domain.Services.Logging;
-using OmniVoice.Domain.Command.Interfaces;
+using OmniVoice.Domain.Command;
 
 namespace OmniVoice.Domain.Services.CommandService;
 

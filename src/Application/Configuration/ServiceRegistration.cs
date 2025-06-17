@@ -8,8 +8,8 @@ using OmniVoice.Application.Services.CommandService;
 using OmniVoice.Application.Core.Models;
 using OmniVoice.Domain.Services.SpeechRecognition;
 using OmniVoice.Domain.Services.SpeechSynthesizer;
-using OmniVoice.Domain.Command.Interfaces;
 using OmniVoice.Domain.Services.Logging;
+using OmniVoice.Domain.Command;
 
 namespace OmniVoice.Application.Configuration;
 
