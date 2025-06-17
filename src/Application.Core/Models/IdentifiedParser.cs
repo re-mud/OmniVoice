@@ -1,7 +1,7 @@
 ﻿using OmniVoice.Domain.Analyzers;
 using OmniVoice.Domain.Models;
 
-namespace OmniVoice.Application.Models;
+namespace OmniVoice.Application.Core.Models;
 
 public class IdentifiedParser : IIdentifiedEntity<IParser>
 {

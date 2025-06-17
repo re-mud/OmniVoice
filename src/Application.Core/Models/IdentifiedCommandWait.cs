@@ -1,6 +1,6 @@
 ﻿using OmniVoice.Domain.Command.Interfaces;
 
-namespace OmniVoice.Application.Models;
+namespace OmniVoice.Application.Core.Models;
 
 public class IdentifiedCommandWait : IdentifiedCommand
 {

@@ -5,7 +5,7 @@ using OmniVoice.Application.Services.CommandService.States;
 using OmniVoice.Application.Services.CommandRecognition;
 using OmniVoice.Application.Services.SpeechRecognition;
 using OmniVoice.Application.Services.CommandService;
-using OmniVoice.Application.Models;
+using OmniVoice.Application.Core.Models;
 using OmniVoice.Domain.Services.SpeechRecognition;
 using OmniVoice.Domain.Services.SpeechSynthesizer;
 using OmniVoice.Domain.Command.Interfaces;

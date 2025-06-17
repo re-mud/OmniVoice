@@ -1,7 +1,7 @@
 ﻿using OmniVoice.Domain.Services.CommandService.States;
 using OmniVoice.Domain.Models;
 
-namespace OmniVoice.Application.Models;
+namespace OmniVoice.Application.Core.Models;
 
 public class IdentifiedState : IIdentifiedEntity<ICommandServiceState>
 {

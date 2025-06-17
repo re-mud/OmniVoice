@@ -1,7 +1,7 @@
 ﻿using OmniVoice.Domain.Command.Interfaces;
 using OmniVoice.Domain.Models;
 
-namespace OmniVoice.Application.Models;
+namespace OmniVoice.Application.Core.Models;
 
 public class IdentifiedCommand : IIdentifiedEntity<ICommand>
 {
