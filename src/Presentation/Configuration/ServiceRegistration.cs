@@ -34,7 +34,7 @@ public static class ServiceRegistration
     {
         services.AddTransient(sp => new MenuButtonModel("Main", "MainPage", "#A4B5BE", "#C5D9E3"));
         services.AddTransient(sp => new MenuButtonModel("Logs", "LogPage", "#A4B5BE", "#C5D9E3"));
-        services.AddTransient(sp => new MenuButtonModel("Plugins", "PluginsPage", "#A4B5BE", "#C5D9E3"));
+        services.AddTransient(sp => new MenuButtonModel("Extensions", "ExtensionsPage", "#A4B5BE", "#C5D9E3"));
         services.AddTransient(sp => new MenuButtonModel("Settings", "SettingsPage", "#A4B5BE", "#C5D9E3"));
     }
 
@@ -47,6 +47,8 @@ public static class ServiceRegistration
         services.AddTransient(sp => new IdentifiedPage("MainPage", new MainPage(sp.GetRequiredService<IMainPageModel>())));
         services.AddTransient<ILogPageModel, LogPageModel>();
         services.AddTransient(sp => new IdentifiedPage("LogPage", new LogPage(sp.GetRequiredService<ILogPageModel>())));
+        services.AddTransient<IExtensionsPageModel, ExtensionsPageModel>();
+        services.AddTransient(sp => new IdentifiedPage("ExtensionsPage", new ExtensionsPage(sp.GetRequiredService<IExtensionsPageModel>())));
     }
 
     private static MainWindowModel CreateMainWindowModel(IServiceProvider serviceProvider, IConfiguration configuration)
