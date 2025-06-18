@@ -32,6 +32,8 @@ public static class ServiceRegistration
             new RecognizingState(sp.GetServices<IdentifiedCommand>().ToArray())));
         services.AddTransient(sp => new IdentifiedState("Wait",
             new WaitingState(sp.GetServices<IdentifiedCommandWait>().ToArray())));
+        services.AddTransient(sp => new IdentifiedState("Reply",
+            new ReplyState()));
     }
 
     private static void AddServices(IServiceCollection services, IConfiguration configuration)
