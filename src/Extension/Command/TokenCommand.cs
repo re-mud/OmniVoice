@@ -1,9 +1,10 @@
-﻿using OmniVoice.Domain.Command.Models;
+﻿using System.Text;
+
+using OmniVoice.Domain.Command;
+using OmniVoice.Domain.Command.Models;
 using OmniVoice.Domain.Models;
 
-using System.Text;
-
-namespace OmniVoice.Domain.Command;
+namespace OmniVoice.Extension.Command;
 
 public class TokenCommand : ICommand
 {
@@ -14,14 +15,14 @@ public class TokenCommand : ICommand
     }
     protected readonly string[] Tokens;
     private readonly int _tokensLength;
-    private readonly Func<object[], StateTransition> _executeFunc;
+    private readonly Func<object[], StateTransition>? _executeFunc;
 
     /// <param name="tokens">Words, their parts or combinations of words.</param>
     /// <param name="requiredParams">Required types params.</param>
     public TokenCommand(
-        string[] tokens, 
-        string[] requiredParams, 
-        Func<object[], StateTransition> executeFunc)
+        string[] tokens,
+        string[] requiredParams,
+        Func<object[], StateTransition>? executeFunc = null)
     {
         RequiredParams = requiredParams;
         Tokens = tokens;
@@ -31,7 +32,7 @@ public class TokenCommand : ICommand
         Array.Sort(Tokens, (a, b) => b.Length.CompareTo(a.Length));
     }
 
-    public StateTransition Execute(object[] args) => _executeFunc.Invoke(args);
+    public StateTransition Execute(object[] args) => _executeFunc?.Invoke(args) ?? new();
 
     public CommandParseResult Parse(string text)
     {
@@ -56,9 +57,12 @@ public class TokenCommand : ICommand
             }
         }
 
+        ;
+
         return new CommandParseResult(
             count / _tokensLength,
-            resultText.ToString());
+            string.Join(' ', resultText.ToString()
+                                       .Split(' ', StringSplitOptions.RemoveEmptyEntries)));
     }
 
     public string GetCommandString()
