@@ -28,9 +28,7 @@ public class ExtensionManager : IExtensionManager
 
         foreach (string directory in directories)
         {
-            string directoryPath = Path.Combine(_options.ExtensionsPath, directory);
-
-            string[] files = Directory.GetFiles(directoryPath, "*.dll");
+            string[] files = Directory.GetFiles(directory, "*.dll");
 
             foreach (string file in files)
             {
@@ -51,7 +49,7 @@ public class ExtensionManager : IExtensionManager
 
         try
         {
-            assembly = Assembly.LoadFile(filePath);
+            assembly = Assembly.LoadFile(Path.GetFullPath(filePath));
 
             types = assembly.GetTypes();
         }
