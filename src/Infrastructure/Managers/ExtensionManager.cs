@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
 
-using OmniVoice.Domain.Services.Logging;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+
+using OmniVoice.Domain.Services.Logging;
 using OmniVoice.Extension;
 using OmniVoice.Infrastructure.Managers.Interfaces;
 using OmniVoice.Infrastructure.Managers.Options;
@@ -10,21 +12,21 @@ namespace OmniVoice.Infrastructure.Managers;
 
 public class ExtensionManager : IExtensionManager
 {
-    private ExtensionManagerOptions _options;
+    private string _pathExtension;
     private List<ExtensionBase> _extensions = new();
     private ILogger _logger;
 
-    public ExtensionManager(IOptions<ExtensionManagerOptions> options, ILogger logger)
+    public ExtensionManager(string pathExtension, ILogger logger)
     {
-        _options = options.Value;
+        _pathExtension = pathExtension;
         _logger = logger;
     }
 
     public void LoadExtensions()
     {
-        if (!Directory.Exists(_options.ExtensionsPath)) return;
+        if (!Directory.Exists(_pathExtension)) return;
 
-        string[] directories = Directory.GetDirectories(_options.ExtensionsPath);
+        string[] directories = Directory.GetDirectories(_pathExtension);
 
         foreach (string directory in directories)
         {
@@ -39,6 +41,14 @@ public class ExtensionManager : IExtensionManager
                     AddExtension(extension);
                 }
             }
+        }
+    }
+
+    public void RegistrationServices(IServiceCollection serviceCollection)
+    {
+        foreach (var extension in _extensions)
+        {
+            extension.RegisterServices(serviceCollection);
         }
     }
 
