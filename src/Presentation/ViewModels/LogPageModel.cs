@@ -1,7 +1,9 @@
 ﻿using OmniVoice.Domain.Services.Logging;
 using OmniVoice.Domain.Services.Logging.Events;
+using OmniVoice.Presentation.Common.Commands;
 using OmniVoice.Presentation.Common.Views;
 using OmniVoice.Presentation.ViewModelContracts;
+using System.Windows.Input;
 
 namespace OmniVoice.Presentation.ViewModels;
 
@@ -23,6 +25,18 @@ public class LogPageModel : ViewModelBase, ILogPageModel
         }
     }
 
+    private ICommand _clearCommand;
+    public ICommand ClearCommand
+    {
+        get
+        {
+            return _clearCommand ??= new RelayCommand(obj =>
+            {
+                ClearLogs();
+            });
+        }
+    }
+
     public LogPageModel(ILogger logger)
     {
         _logger = logger;
@@ -40,5 +54,12 @@ public class LogPageModel : ViewModelBase, ILogPageModel
         }
 
         Logs = string.Join("", _logsArray);
+    }
+
+    private void ClearLogs()
+    {
+        _logsArray.Clear();
+
+        Logs = string.Empty;
     }
 }
