@@ -1,6 +1,6 @@
-﻿using OmniVoice.Application.Common.Command;
+﻿using OmniVoice.Extension.Command;
 
-namespace Application.Domain.UnitTest.Common.Command;
+namespace Extensions.UnitTests.Command;
 
 [TestClass]
 public class TokenCommandTests
@@ -15,9 +15,10 @@ public class TokenCommandTests
 
         var result = command.Parse(inputText);
 
-        Assert.AreEqual("this is ", result.RemainingText);
+        Assert.AreEqual("this is", result.RemainingText);
         Assert.AreEqual(1, result.Probability);
     }
+
     [TestMethod]
     public void Parse_WhenTextNotContainsTokens_ShouldReturnCorrectResult()
     {
